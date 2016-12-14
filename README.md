@@ -53,3 +53,29 @@ cd GetHashFromURL
 
 curl http://localhost:8000/api/hash/www.botdream.com
 ```
+
+CouchDBLucene
+-----------------------
+Create a database and some docs and then you can start setting up and querying indexes as explained in the [couchdb-lucene readme](https://github.com/rnewson/couchdb-lucene#indexing-strategy).
+
+For a quick service test run this commands:
+
+```
+cd CouchDBLucene
+
+docker-compose up
+./database_init.sh
+
+open http://localhost:5984/_utils/
+
+curl -X GET http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=nirvana&include_docs=true | jq .
+
+curl -X GET http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=einstein&include_docs=true | jq .
+
+curl -X GET http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
+
+// Clear CouchDB data
+docker-compose rm
+```
+
+More info on CouchDB-Lucene fulltext search here: [couchdblucene-fulltext-search](http://www.slideshare.net/martin.rehfeld/couchdblucene)

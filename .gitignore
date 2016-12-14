@@ -7,7 +7,6 @@ GetContentFromURL/content-as-a-service/config/development.yaml
 GetContentFromURL/content-as-a-service/config/production.yaml
 GetContentFromURL/content-as-a-service/config/runtime.json
 SendFavoritesToCouchDB
-CouchDBLucene
 SearchEngineUI
 SearchEngineHapiUI
 SearchEngineElectron
