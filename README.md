@@ -79,3 +79,25 @@ docker-compose rm
 ```
 
 More info on CouchDB-Lucene fulltext search here: [couchdblucene-fulltext-search](http://www.slideshare.net/martin.rehfeld/couchdblucene)
+
+
+SendFavoritesToCouchDB
+-----------------------
+A simple tool made in GO to parse Google Chrome Bookmark exported HTML file into CouchDB-Lucene.
+
+
+For a quick service test run this commands:
+
+```
+cd SendFavoritesToCouchDB
+
+# export Chrome Bookmark file to ./bookmarks_sample.html
+
+# ./build.sh # in case you need to change the sourcecode and compile the tool
+
+# Launch CouchDB-Lucene service and initialize database
+
+# Launch GetContentFromURL service
+
+./SendFavoritesToCouchDB ./bookmarks_sample.html
+```
