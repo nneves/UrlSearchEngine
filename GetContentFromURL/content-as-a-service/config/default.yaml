@@ -1,0 +1,9 @@
+content:
+  command: hget        # hget cli tool
+  path: '/tmp/'        # where the screenshot files are stored
+cache:
+  lifetime: 1800000    # one minute, set to 0 for no cache
+server:
+  port: 6000           # main service port
+  host: '0.0.0.0'      # host to listen on
+  useCors: false       # enable CORS support

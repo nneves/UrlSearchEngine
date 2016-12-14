@@ -1,0 +1,16 @@
+{
+  "name": "content-as-a-service",
+  "description": "Website content service powered by node.js and hget/cheerio",
+  "version": "1.0.0",
+  "repository": "https://github.com/nneves/content-as-a-service",
+  "engines": {
+    "node": ">=0.8.4"
+  },
+  "dependencies": {
+    "cheerio": "^0.22.0",
+    "config": "0.4.15",
+    "express": "3.x",
+    "hget": "^3.0.1",
+    "request": "2.9.153"
+  }
+}
