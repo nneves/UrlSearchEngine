@@ -37,3 +37,19 @@ cd GetContentFromURL
 
 curl http://localhost:6000/\?url\=www.botdream.com
 ```
+
+GetHashFromURL
+-----------------------
+A simple GO Lang web service to convert a URL to an HASH
+
+For a quick service test run this commands:
+
+```
+cd GetHashFromURL
+
+# ./build.sh # only if you need to re-compile the sourcecode
+./docker_build.sh
+./docker_run.sh
+
+curl http://localhost:8000/api/hash/www.botdream.com
+```

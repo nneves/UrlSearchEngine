@@ -6,7 +6,6 @@ GetContentFromURL/content-as-a-service/node_modules
 GetContentFromURL/content-as-a-service/config/development.yaml
 GetContentFromURL/content-as-a-service/config/production.yaml
 GetContentFromURL/content-as-a-service/config/runtime.json
-GetHashFromURL
 SendFavoritesToCouchDB
 CouchDBLucene
 SearchEngineUI
