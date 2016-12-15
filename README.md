@@ -106,7 +106,7 @@ SearchEngineUI
 -----------------------
 An experimental UI using Vue.js, basic webpack-dev-server http server, no backend yet implemented, neither docker container available!
 
-![Web UI](https://cldup.com/b10lRN_g0M.png)
+![Web UI](https://cldup.com/2sYdRTkeLF.png)
 
 For a quick service test run this commands:
 
