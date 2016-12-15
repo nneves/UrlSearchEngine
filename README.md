@@ -28,15 +28,17 @@ open http://localhost:5984/_utils/database.html\?searchengine/_all_docs
 // Test CouchDB+Lucene search
 curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
 
-// Inser CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
+// Insert CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
 
 // WIP: missing main webapp to insert links contents into CouchDB
 
 // shutdown services
 docker-compose stop
+OR
+CTRL+C in the original terminal
 
 // clean services data (reset containers)
-dokcer-compose rm
+docker-compose rm
 ```
 
 TODO:
