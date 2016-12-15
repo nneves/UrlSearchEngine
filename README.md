@@ -101,3 +101,21 @@ cd SendFavoritesToCouchDB
 
 ./SendFavoritesToCouchDB ./bookmarks_sample.html
 ```
+
+SearchEngineUI
+-----------------------
+An experimental UI using Vue.js, basic webpack-dev-server http server, no backend yet implemented, neither docker container available!
+
+[Web UI]: https://cldup.com/b10lRN_g0M.png "Web UI Demo"
+
+
+For a quick service test run this commands:
+
+```
+cd SearchEngineUI
+
+npm install
+npm start
+
+open http://localhost:8080
+```

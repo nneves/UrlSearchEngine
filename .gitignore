@@ -6,7 +6,7 @@ GetContentFromURL/content-as-a-service/node_modules
 GetContentFromURL/content-as-a-service/config/development.yaml
 GetContentFromURL/content-as-a-service/config/production.yaml
 GetContentFromURL/content-as-a-service/config/runtime.json
-SearchEngineUI
+SearchEngineUI/node_modules
 SearchEngineHapiUI
 SearchEngineElectron
 Electron-Basic-Boilerplate
