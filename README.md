@@ -51,7 +51,7 @@ TODO:
 
 
 
-# Run services independently with docker [Development]
+# Run services independently [use only for development]
 
 ### GetImageFromURL
 -----------------------
