@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Search Engine</title>
+
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="//fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="assets/vue-material/vue-material.css">
+    <script src="assets/vue-material/vue-material.js"></script>
+</head>
+
+<body>
+    <!-- Vue.js app -->
+    <div id="my-app">
+        <!-- navbar -->
+        <my-navbar></my-navbar>
+        <!-- end navbar -->
+
+        <!-- search panel -->
+        <my-searchpanel></my-searchpanel>
+        <!-- end search panel -->
+
+        <!-- THIS WORKS FROM HERE -->
+        <!-- <md-button v-md-theme="'default'">My main.js button</md-button> -->
+
+        <!-- search tiles -->
+        <!-- <my-searchtiles></my-searchtiles> -->
+        <br><br><br>
+        <div v-for="item in [1,2,3,4,5,6,7,8,9,10]">
+            <div class="container">
+                <md-card md-with-hover>
+                    <md-card-header>
+                        <div class="md-title">Title goes here {{item}}</div>
+                        <div class="md-subhead">Subtitle here</div>
+                    </md-card-header>
+
+                    <md-card-media>
+                        <img src="https://raw.githubusercontent.com/marcosmoura/vue-material/master/docs/src/assets/card-image-1.jpg" alt="People">
+                    </md-card-media>
+
+                    <md-card-actions>
+                        <md-button>Open</md-button>
+                    </md-card-actions>
+                </md-card>
+            </div>
+        </div>
+        <!-- end search tiles -->
+    </div>
+    <!-- end Vue.js app -->
+
+    <script src="dist/build.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/bootstrap.min.js"></script>
+</body>
+
+</html>
