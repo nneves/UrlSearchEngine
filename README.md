@@ -1,5 +1,56 @@
 # UrlSearchEngine
 
+Multi services architecture to Index and Search URLs by it's content using CouchDB+Lucene as a SearchEngine. 
+
+NOTE: This project is still under heavy development, please expect some WIP!
+
+Quick start (docker and docker-compose required):
+
+```
+// Launch all required services
+docker-compose up
+
+// Initialize CouchDB database, design documents and sample data
+./couchdb_init.sh
+
+// Test GetImageFromURL
+open http://localhost:3000/?url=www.botdream.com&width=1024&height=900
+
+// Test GetContentFromURL
+curl http://localhost:6000/\?url\=www.botdream.com
+
+// Test GetHashFromURL
+curl http://localhost:8000/api/hash/www.botdream.com
+
+// Open CouchDB UI
+open http://localhost:5984/_utils/database.html\?searchengine/_all_docs
+
+// Test CouchDB+Lucene search
+curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
+
+// Inser CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
+
+// WIP: missing main webapp to insert links contents into CouchDB
+
+// shutdown services
+docker-compose stop
+
+// clean services data (reset containers)
+dokcer-compose rm
+```
+
+TODO:
+
+* Finish SeachEngineUI
+* Bundle SearchEngineUI into an Express.js/Hapi.js webapp
+* Add Logic to the previous webapp (insert URL content/image/HASH into CouchDB document, search content)
+* Add agent plugin for Email (Read email account to insert links content into CouchDB)
+* Add agent plugin for Slack/Telegraf (Use NodeRed telegram/slack integration to insert links content into CouchDB)
+
+
+
+# Run services independently with docker [Development]
+
 ### GetImageFromURL
 -----------------------
 
@@ -68,11 +119,11 @@ docker-compose up
 
 open http://localhost:5984/_utils/
 
-curl -X GET http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=nirvana&include_docs=true | jq .
+curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=nirvana&include_docs=true | jq .
 
-curl -X GET http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=einstein&include_docs=true | jq .
+curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=einstein&include_docs=true | jq .
 
-curl -X GET http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
+curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
 
 // Clear CouchDB data
 docker-compose rm
