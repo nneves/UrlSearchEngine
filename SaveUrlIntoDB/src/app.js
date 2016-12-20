@@ -46,8 +46,8 @@ function webhandler(request, reply) {
             log("success");
             reply("success");
         })
-        .catch(function() {
-            log.error("failed");
+        .catch(function(reason) {
+            log.error("failed", reason);
             reply("failed");
         });
 }
