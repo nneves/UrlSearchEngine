@@ -27,6 +27,21 @@ services:
         aliases:
           - getcontentfromurl
 
+  saveurlintodb:
+      build: ./SaveUrlIntoDB    
+      environment: 
+        COUCHDB_HOST: "couchdb"        
+        CONTENT_HOST: "getcontentfromurl"      
+      ports:
+        - "6001:6001"    
+      depends_on: 
+        - couchdb
+        - couchdb-lucene
+        - getcontentfromurl
+      networks:
+        senetwork:
+          aliases:
+            - saveurlintodb
   gethashfromurl:
     build: ./GetHashFromURL
     image: searchengine-gethashfromurl:0.0.2

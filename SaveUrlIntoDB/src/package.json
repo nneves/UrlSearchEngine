@@ -1,0 +1,21 @@
+{
+  "name": "save-url-into-couchdb",
+  "version": "0.0.1",
+  "description": "save a given URL into the full text engine DB",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fancy-log": "^1.2.0",
+    "hapi": "^16.0.2",
+    "lodash": "^4.17.2",
+    "pouchdb": "^6.1.0",
+    "pouchdb-browser": "^6.1.0",
+    "request": "^2.79.0",
+    "request-promise": "^4.1.1",
+    "to-id": "^1.0.5"
+  }
+}

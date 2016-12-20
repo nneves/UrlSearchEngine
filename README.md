@@ -30,6 +30,9 @@ curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/searc
 
 // Insert CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
 
+//SaveUrlIntoDB service
+curl http://localhost:6001/www.botdream.com
+
 // WIP: missing main webapp to insert links contents into CouchDB
 
 // shutdown services
@@ -170,4 +173,16 @@ npm install
 npm start
 
 open http://localhost:8080
+```
+
+### SaveUrlIntoDB
+-----------------------
+A simple url-to-index service. Send meat , get sauge.
+
+This takes the given url, passes it through GetContentFromURL, then pushes it into the `searchengine` CouchDB database where couchdb-lucene is indexing documents. 
+
+curl http://localhost:6001/www.botdream.com
+
+then when its done:
+curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=botdream&include_docs=true | jq .
 ```
