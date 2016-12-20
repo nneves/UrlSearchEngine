@@ -12,6 +12,7 @@
     "fancy-log": "^1.2.0",
     "hapi": "^16.0.2",
     "lodash": "^4.17.2",
+    "pouchdb": "^6.1.0",
     "pouchdb-browser": "^6.1.0",
     "request": "^2.79.0",
     "request-promise": "^4.1.1",
