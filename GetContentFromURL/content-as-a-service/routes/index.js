@@ -17,7 +17,9 @@ module.exports = function(app, useCors) {
     var url = utils.url(req.param('url'));
 
     console.log('Get page content for url: %s', url);
-    contentService.fetchData(url, function (err, data) {
+    contentService.fetchData(url, function (err, response, data) {
+      res.statusCode = response.statusCode;
+      res.statusMessage = response.statusMessage;
       res.write(err || data);
       res.end();
     })
