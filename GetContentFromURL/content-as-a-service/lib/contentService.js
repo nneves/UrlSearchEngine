@@ -35,15 +35,21 @@ ContentService.prototype.fetchData = function(url, callback) {
       response = {}
       response.statusCode = 500;
       response.statusMessage = error.errno;
-
-      callback(error.code, response, null);
+      callback(error.code, response, {
+        "url": url,
+        "error": error.errno
+      });
     } else {
       //html = body.replace(/<script(.*?)<\/script>/g, ' ');
+      var title = hget(body, {"root": "title"});
       var text = hget(body, {});
-      callback(null, response, text);
+      callback(null, response, {
+        "url": url,
+        "title": title,
+        "content": text
+      });
     }
   });
-
 }
 
 module.exports = ContentService;
