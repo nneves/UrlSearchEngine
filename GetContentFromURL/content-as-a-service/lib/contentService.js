@@ -27,15 +27,20 @@ ContentService.prototype.startService = function() {
 
 ContentService.prototype.fetchData = function(url, callback) {
   request({
+    method: 'GET',
     uri: url,
     timeout: 150000,
   }, function(error, response, body) {
     if (error) {
-      callback(error.code, null);
+      response = {}
+      response.statusCode = 500;
+      response.statusMessage = error.errno;
+
+      callback(error.code, response, null);
     } else {
       //html = body.replace(/<script(.*?)<\/script>/g, ' ');
       var text = hget(body, {});
-      callback(null, text);
+      callback(null, response, text);
     }
   });
 
