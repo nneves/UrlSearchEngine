@@ -20,7 +20,8 @@ module.exports = function(app, useCors) {
     contentService.fetchData(url, function (err, response, data) {
       res.statusCode = response.statusCode;
       res.statusMessage = response.statusMessage;
-      res.write(err || data);
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.write(JSON.stringify(data));
       res.end();
     })
   });

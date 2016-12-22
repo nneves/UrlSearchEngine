@@ -10,7 +10,8 @@ curl -H 'Content-Type: application/json' \
   -X POST http://localhost:5984/searchengine \
   -d '{"_id": "_design/search", 
         "fulltext": {
-          "by_content": { "index": "function(doc) { var ret=new Document(); ret.add(doc.content); return ret }" }
+          "by_content": { "index": "function(doc) { var ret=new Document(); ret.add(doc.content); return ret }" },
+          "by_title": { "index": "function(doc) { var ret=new Document(); ret.add(doc.title); return ret }" }
         }
       }'
 
