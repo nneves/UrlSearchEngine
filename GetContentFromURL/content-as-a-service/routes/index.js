@@ -17,8 +17,11 @@ module.exports = function(app, useCors) {
     var url = utils.url(req.param('url'));
 
     console.log('Get page content for url: %s', url);
-    contentService.fetchData(url, function (err, data) {
-      res.write(err || data);
+    contentService.fetchData(url, function (err, response, data) {
+      res.statusCode = response.statusCode;
+      res.statusMessage = response.statusMessage;
+      res.writeHead(200, {"Content-Type": "application/json"});
+      res.write(JSON.stringify(data));
       res.end();
     })
   });

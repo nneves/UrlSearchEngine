@@ -39,7 +39,11 @@ function webhandler(request, reply) {
     var url = request.params.url;
     getContent(url)
         .then(function(content) {
-            var doc = contentDocumentFactory(url, content, "");
+            var data = JSON.parse(content)
+            if (data.hasOwnProperty("error") && data.error != "") {
+                throw new Error(data.error);
+            }
+            var doc = contentDocumentFactory(url, data.content, data.title);
             return CDB.put(doc);
         })
         .then(function() {

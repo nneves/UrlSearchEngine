@@ -42,6 +42,9 @@ CTRL+C in the original terminal
 
 // clean services data (reset containers)
 docker-compose rm
+
+// when changing source code you should rebuild docker images, use this generic command to build all and ignore cache (will take some time, forces to rebuild all images from scratch)
+docker-compose build --no-cache
 ```
 
 TODO:
@@ -184,5 +187,12 @@ This takes the given url, passes it through GetContentFromURL, then pushes it in
 curl http://localhost:6001/www.botdream.com
 
 then when its done:
+
+```
 curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=botdream&include_docs=true | jq .
+```
+
+NOTE: service engine is now indexing by title:
+```
+curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_title\?q\=botdream\&include_docs\=true | jq .
 ```
