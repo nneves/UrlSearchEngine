@@ -9,8 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "base64-img": "^1.0.3",
     "fancy-log": "^1.2.0",
     "hapi": "^16.0.2",
+    "joi": "^10.4.1",
     "lodash": "^4.17.2",
     "pouchdb": "^6.1.0",
     "pouchdb-browser": "^6.1.0",

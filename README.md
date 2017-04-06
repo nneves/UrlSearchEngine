@@ -30,10 +30,8 @@ curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/searc
 
 // Insert CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
 
-//SaveUrlIntoDB service
-curl http://localhost:6001/www.botdream.com
-
-// WIP: missing main webapp to insert links contents into CouchDB
+//SaveUrlIntoDB service (POST)
+curl -d 'url=http://www.botdream.com' http://localhost:6001/url
 
 // shutdown services
 docker-compose stop

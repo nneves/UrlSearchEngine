@@ -38,6 +38,7 @@ services:
         - couchdb
         - couchdb-lucene
         - getcontentfromurl
+        - getimagefromurl
       networks:
         senetwork:
           aliases:
