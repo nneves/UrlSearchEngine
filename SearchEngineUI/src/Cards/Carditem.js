@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import './Thumbsite.css';
+import './Carditem.css';
 
 
-export default class Thumbsite extends Component {
+export default class Carditem extends Component {
     render() {
-        //return ( <div className='thumbsite bg-blue m2'> { this.props.data } </div> ); 
         return (
-          <div className='col col-6 sm-col-4 md-col-3 lg-col-2 mb3 px1'>
+          <div className='col col-6 sm-col-4 md-col-3 lg-col-2 mb2 px1'>
             <div className='border bg-white rounded border-black'>
               <a href='#' className='block'>
                   <img src='https://vuematerial.github.io/assets/card-image-1.jpg' className='block' role='presentation' />
