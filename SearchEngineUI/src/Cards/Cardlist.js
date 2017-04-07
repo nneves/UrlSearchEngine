@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Cardlist.css';
 
 import Carditem from './Carditem.js';
 

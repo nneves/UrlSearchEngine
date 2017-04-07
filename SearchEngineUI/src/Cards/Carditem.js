@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import './Carditem.css';
 
 
 export default class Carditem extends Component {

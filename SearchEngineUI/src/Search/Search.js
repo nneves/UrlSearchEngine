@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import './Search.css';
-
 
 export default class SearchPanel extends Component {
     render() {

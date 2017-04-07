@@ -101,7 +101,12 @@ const postUrlConfig = {
     validate: { 
         payload: { 
             url: Joi.string().min(1).required()
-    } }
+        } 
+    },
+    cors: {
+        origin: ['*'],
+        additionalHeaders: ['cache-control', 'x-requested-with']
+    }
 };
 
 
