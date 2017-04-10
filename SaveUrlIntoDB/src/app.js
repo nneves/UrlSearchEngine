@@ -9,6 +9,8 @@ var Hapi = require('hapi');
 var Joi = require('joi');
 var base64Img = require('base64-img');
 
+const SERVER_PORT = process.env.SERVER_PORT || 8000;
+
 const COUCHDB_HOST = process.env.COUCHDB_HOST || 'localhost';
 const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
 const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME || "searchengine";
@@ -111,7 +113,7 @@ const postUrlConfig = {
 
 
 const server = new Hapi.Server();
-server.connection({ port: 6001 });
+server.connection({ port: SERVER_PORT });
 
 
 server.route({

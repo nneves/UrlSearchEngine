@@ -19,9 +19,6 @@ open http://localhost:3000/?url=www.botdream.com&width=1024&height=900
 // Test GetContentFromURL
 curl http://localhost:6000/\?url\=www.botdream.com
 
-// Test GetHashFromURL
-curl http://localhost:8000/api/hash/www.botdream.com
-
 // Open CouchDB UI
 open http://localhost:5984/_utils/database.html\?searchengine/_all_docs
 
@@ -47,11 +44,11 @@ docker-compose build --no-cache
 
 TODO:
 
-* Finish SeachEngineUI
-* Bundle SearchEngineUI into an Express.js/Hapi.js webapp
-* Add Logic to the previous webapp (insert URL content/image/HASH into CouchDB document, search content)
-* Add agent plugin for Email (Read email account to insert links content into CouchDB)
-* Add agent plugin for Slack/Telegraf (Use NodeRed telegram/slack integration to insert links content into CouchDB)
+[ ] Finish SeachEngineUI
+[ ] Bundle SearchEngineUI into an Express.js/Hapi.js webapp
+[ ] Add Logic to the previous webapp (insert URL content/image into CouchDB document, search content)
+[ ] Add agent plugin for Email (Read email account to insert links content into CouchDB)
+[ ] Add agent plugin for Slack/Telegraf (Use NodeRed telegram/slack integration to insert links content into CouchDB)
 
 
 
@@ -93,22 +90,6 @@ cd GetContentFromURL
 ./docker_run.sh
 
 curl http://localhost:6000/\?url\=www.botdream.com
-```
-
-GetHashFromURL
------------------------
-A simple GO Lang web service to convert a URL to an HASH
-
-For a quick service test run this commands:
-
-```
-cd GetHashFromURL
-
-# ./build.sh # only if you need to re-compile the sourcecode
-./docker_build.sh
-./docker_run.sh
-
-curl http://localhost:8000/api/hash/www.botdream.com
 ```
 
 CouchDBLucene
