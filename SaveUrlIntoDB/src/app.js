@@ -76,26 +76,31 @@ const test = "http://www.botdream.com";
 
 function postUrlHandler(request, reply) {
     var url = request.payload.url;
-    getContent(url)
-        .then(function(content) {
-            getImageBase64(url)
-                .then(function(image) {
-                    var data = JSON.parse(content);
-                    if (data.hasOwnProperty("error") && data.error != "") {
-                        throw new Error(data.error);
-                    }
-                    var doc = contentDocumentFactory(url, data.content, data.title, image);
-                    return CDB.put(doc);
-                })
-        })
-        .then(function() {
-            log("success");
-            reply("success");
-        })
-        .catch(function(reason) {
-            log.error("failed", reason);
-            reply("failed");
-        });
+    var response = {"result":"", "message":""};
+    Promise.all([
+        getContent(url),
+        getImageBase64(url)
+    ])
+    .then(function([content, image]) {
+        var data = JSON.parse(content);
+        if (data.hasOwnProperty("error") && data.error != "") {
+            throw new Error(data.error);
+        }
+        var doc = contentDocumentFactory(url, data.content, data.title, image);
+        return CDB.put(doc);
+
+    })
+    .then(function() {
+        response.result = "success";
+        log(response.result);
+        reply(response);
+    })
+    .catch(function(reason) {
+        response.result = "failed";
+        response.message = reason;
+        log.error(response.result, response.message);
+        reply(response);
+    });
 }
 
 const postUrlConfig = {

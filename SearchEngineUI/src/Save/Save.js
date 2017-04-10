@@ -17,7 +17,7 @@ export default class SavePanel extends Component {
 
     handleSubmit(event) {
       console.log('A name was submitted: ' + this.state.value);
-      let apiUrl = "http://localhost:6001/url";
+      let apiUrl = "http://localhost:8000/url";
       let payload = `url=${this.state.value}`;
       let setState = this.setState.bind(this);
 
@@ -30,14 +30,19 @@ export default class SavePanel extends Component {
         body: payload
       })
       .then(ApiUtils.checkStatus)
+      .then(function(res) {
+          return res.json();
+      })
       .then(function(response) {
+        if (response.result !== "success") {
+          throw new Error(JSON.stringify(response.message));
+        }
         setState({value: ''});
-        console.log(response);
         alert("Ok!");
       })
-      .catch(function(error){
-        console.log(error);
-        alert(error);
+      .catch(function(err){
+        console.log(err);
+        alert(err);
       });
 
       event.preventDefault();

@@ -2,6 +2,7 @@ GetImageFromURL/screenshot-as-a-service/node_modules
 GetImageFromURL/screenshot-as-a-service/config/development.yaml
 GetImageFromURL/screenshot-as-a-service/config/production.yaml
 GetImageFromURL/screenshot-as-a-service/config/runtime.json
+GetImageFromURL/tmp/
 GetContentFromURL/content-as-a-service/node_modules
 GetContentFromURL/content-as-a-service/config/development.yaml
 GetContentFromURL/content-as-a-service/config/production.yaml
