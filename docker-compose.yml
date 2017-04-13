@@ -30,9 +30,10 @@ services:
   saveurlintodb:
       build: ./SaveUrlIntoDB
       image: searchengine-saveurlintodb:0.0.3
-      environment: 
-        COUCHDB_HOST: "couchdb"        
-        CONTENT_HOST: "getcontentfromurl"      
+      environment:
+        COUCHDB_HOST: "couchdb"
+        IMAGE_HOST: "getimagefromurl"
+        CONTENT_HOST: "getcontentfromurl"
       ports:
         - "8000:8000"
       depends_on: 
