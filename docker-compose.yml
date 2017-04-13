@@ -29,7 +29,7 @@ services:
 
   saveurlintodb:
       build: ./SaveUrlIntoDB
-      image: searchengine-saveurlintodb:0.0.3
+      image: searchengine-saveurlintodb:0.0.5
       environment:
         COUCHDB_HOST: "couchdb"
         IMAGE_HOST: "getimagefromurl"

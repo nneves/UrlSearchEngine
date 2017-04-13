@@ -1,18 +1,25 @@
 import React from 'react';
 import Snackbar from 'material-ui/Snackbar';
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
 
 export default class SnackbarExampleSimple extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      autoHideDuration: 4000,
-      message: 'Event added to your calendar',
+      autoHideDuration: 5000,
+      message: 'Initial message ...',
       open: false,
     };
+
+    this.showMessage = this.showMessage.bind(this);
   }
+
+  showMessage = (msg) => {
+    this.setState({
+      message: msg,
+      open: true,
+    });
+  };
 
   openMessage = (msg, time) => {
     this.setState({
@@ -37,6 +44,7 @@ export default class SnackbarExampleSimple extends React.Component {
   handleChangeDuration = (event) => {
     const value = event.target.value;
     this.setState({
+      // eslint-disable-next-line
       autoHideDuration: value.length > 0 ? parseInt(value) : 0,
     });
   };
@@ -49,26 +57,14 @@ export default class SnackbarExampleSimple extends React.Component {
 
   render() {
     return (
-      <div>
-        <RaisedButton
-          onTouchTap={this.handleTouchTap}
-          label="Add to my calendar"
-        />
-        <br />
-        <TextField
-          floatingLabelText="Auto Hide Duration in ms"
-          value={this.state.autoHideDuration}
-          onChange={this.handleChangeDuration}
-        />
-        <Snackbar
-          open={this.state.open}
-          message={this.state.message}
-          action="Close"
-          autoHideDuration={this.state.autoHideDuration}
-          onActionTouchTap={this.handleActionTouchTap}
-          onRequestClose={this.handleRequestClose}
-        />
-      </div>
+      <Snackbar
+        open={this.state.open}
+        message={this.state.message}
+        action="Close"
+        autoHideDuration={this.state.autoHideDuration}
+        onActionTouchTap={this.handleActionTouchTap}
+        onRequestClose={this.handleRequestClose}
+      />
     );
   }
 }

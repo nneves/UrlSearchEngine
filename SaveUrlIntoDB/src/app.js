@@ -84,6 +84,7 @@ function postUrlHandler(request, reply) {
     .then(function([content, image]) {
         var data = JSON.parse(content);
         if (data.hasOwnProperty("error") && data.error != "") {
+            console.log("=>", data.error);
             throw new Error(data.error);
         }
         var doc = contentDocumentFactory(url, data.content, data.title, image);
@@ -97,7 +98,7 @@ function postUrlHandler(request, reply) {
     })
     .catch(function(reason) {
         response.result = "failed";
-        response.message = reason;
+        response.message = reason.message;
         log.error(response.result, response.message);
         reply(response);
     });
