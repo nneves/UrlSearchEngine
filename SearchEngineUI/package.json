@@ -8,8 +8,11 @@
   "dependencies": {
     "ace-css": "^1.1.0",
     "axios": "^0.15.3",
+    "material-ui": "^0.17.3",
+    "prop-types": "^15.5.6",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
     "start": "PORT=8080 react-scripts start",
