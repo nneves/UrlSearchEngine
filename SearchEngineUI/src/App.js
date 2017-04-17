@@ -28,9 +28,15 @@ export default class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      searchdata: {
+        "total_rows": 0,
+        "rows": []
+      }
+    };
     this.handleMessage = this.handleMessage.bind(this);
     this.handleSaveSubmit = this.handleSaveSubmit.bind(this);
+    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
   }
 
   handleMessage = (msg) => {
@@ -64,14 +70,42 @@ export default class App extends Component {
     });
   };
 
+  handleSearchSubmit = (serchwords) => {
+    //curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
+    let querystring = serchwords.split(' ').join('+');
+    let apiUrl = `http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=${querystring}&include_docs=true`;
+    console.log(querystring);
+
+    fetch(`${apiUrl}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+    .then(ApiUtils.checkStatus)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.hasOwnProperty("etag") === false) {
+        throw new Error(response.message);
+      }
+      console.log(response);
+      this.handleMessage(`${serchwords} search completed!`);
+      this.setState({searchdata: response});
+    })
+    .catch((err) => {
+      console.log(err);
+      this.handleMessage(`Failed to search ${serchwords}! Error: ${err.message}`);
+    });
+  };
+
   render() {
     return (
       <MuiThemeProvider>
       <div>
         <Messages ref={(messages) => { this.messages = messages; }} />
         <SavePanel saveSubmit={this.handleSaveSubmit.bind(this)} />
-        <SearchPanel />
-        <Cardlist />
+        <SearchPanel searchSubmit={this.handleSearchSubmit.bind(this)} />
+        <Cardlist searchdata={this.state.searchdata} />
       </div>
       </MuiThemeProvider>
     );

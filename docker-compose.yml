@@ -50,7 +50,6 @@ services:
     build:
       context: ./CouchDBLucene/
       dockerfile: ./Dockerfile-couchdb
-    image: searchengine-couchdb:0.0.1
     ports:
       - "5984:5984"
     networks:
