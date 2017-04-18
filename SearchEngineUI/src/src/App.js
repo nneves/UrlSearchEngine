@@ -23,8 +23,8 @@ import Messages from './Messages/Messages.js';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const SAVEURL_HOST = process.env.SAVEURL_HOST || 'localhost';
-const SAVEURL_PORT = process.env.SAVEURL_PORT || 8000;
+const DBPROXY_HOST = process.env.DBPROXY_HOST || 'localhost';
+const DBPROXY_PORT = process.env.DBPROXY_PORT || 8000;
 
 export default class App extends Component {
 
@@ -46,7 +46,7 @@ export default class App extends Component {
   }
 
   handleSaveSubmit = (urladdress) => {
-    let apiUrl = `http://${SAVEURL_HOST}:${SAVEURL_PORT}/url`;
+    let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/url`;
     let payload = `url=${urladdress}`;
     //let setState = this.setState.bind(this);
 
@@ -74,7 +74,7 @@ export default class App extends Component {
 
   handleSearchSubmit = (serchwords) => {
     let querystring = serchwords.split(' ').join('+');
-    let apiUrl = `http://${SAVEURL_HOST}:${SAVEURL_PORT}/search/${querystring}`;
+    let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/search/${querystring}`;
     console.log(querystring);
 
     fetch(`${apiUrl}`, {

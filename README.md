@@ -30,9 +30,9 @@ curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/searc
 
 // Insert CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
 
-//SaveUrlIntoDB service (POST)
-curl -d 'url=http://www.botdream.com' http://localhost:8000/url
-curl http://localhost:8000/search/botdream | jq .
+//DBProxy service
+[POST] curl -d 'url=http://www.botdream.com' http://localhost:8000/url
+[GET] curl http://localhost:8000/search/botdream | jq .
 
 // shutdown services
 docker-compose stop
@@ -177,7 +177,7 @@ npm start
 open http://localhost:8080
 ```
 
-### SaveUrlIntoDB
+### DBProxy
 -----------------------
 A simple url-to-index service. Send meat , get sauge.
 
@@ -194,4 +194,10 @@ curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/searc
 NOTE: service engine is now indexing by title:
 ```
 curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_title\?q\=botdream\&include_docs\=true | jq .
+```
+
+ALSO: DBProxy is now implementing SEARCH endpoint (this avoids UI to require data directly to couchdb, also in future it will be possible to use other DB engine and abstract it with this service => looking at ElasticSearch)
+
+```
+curl -X GET --silent http://localhost:8000/search/botdream | jq .
 ```

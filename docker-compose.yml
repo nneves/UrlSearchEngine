@@ -3,15 +3,15 @@ version: '2'
 services:
   ui:
       build: ./SearchEngineUI
-      image: searchengine-ui:0.0.2
+      image: searchengine-ui:0.0.3
       environment:
         COUCHDB_HOST: "couchdb"
-        SAVEURL_HOST: "saveurlintodb"
+        DBPROXY_HOST: "dbproxy"
       ports:
         - "8080:8080"
       depends_on: 
         - couchdb
-        - saveurlintodb
+        - dbproxy
       networks:
         senetwork:
           aliases:
@@ -43,9 +43,9 @@ services:
         aliases:
           - getcontentfromurl
 
-  saveurlintodb:
-      build: ./SaveUrlIntoDB
-      image: searchengine-saveurlintodb:0.0.8
+  dbproxy:
+      build: ./DBProxy
+      image: searchengine-dbproxy:0.0.1
       environment:
         COUCHDB_HOST: "couchdb"
         IMAGE_HOST: "getimagefromurl"
@@ -60,7 +60,7 @@ services:
       networks:
         senetwork:
           aliases:
-            - saveurlintodb
+            - dbproxy
 
   couchdb:
     build:
