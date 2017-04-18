@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  width: 200,
+};
+
 export default class SearchPanel extends Component {
 
     constructor(props) {
@@ -20,10 +27,21 @@ export default class SearchPanel extends Component {
 
     render() {
         return (
-          <div className='px4 flex m2'>
-              <label className='mb0 mr2'>Search</label>
-              <input className='mb0 input rounded-left' placeholder='search words' value={this.state.value} onChange={this.handleChange} />
-              <button className='btn btn-narrow btn-primary rounded-right' onClick={this.handleClick} > Go </button>
+          <div>
+            <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
+              <div className="px4 flex mx2 mt1 mb0">
+                <TextField
+                  value={this.state.value}
+                  hintText="search words"
+                  floatingLabelText="Search"
+                  fullWidth={true}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="px4 flex mx2 mt0 mb0">
+                <RaisedButton label="Search" primary={false} style={style} onClick={this.handleClick} />
+              </div>
+            </form>
           </div>
         )
     }

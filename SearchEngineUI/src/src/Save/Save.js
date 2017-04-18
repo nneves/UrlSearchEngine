@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
 
+import TextField from 'material-ui/TextField';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  width: 200,
+};
+
 export default class SavePanel extends Component {
     constructor(props) {
       super(props);
@@ -20,11 +27,20 @@ export default class SavePanel extends Component {
     render() {
         return (
           <div>
-            <div className="px4 flex mx2 mt3 mb2">
-                <label className="mb0 mr2">Add</label>
-                <input name="url" className="mb0 input rounded-left" placeholder="http://www.awesomewebsite.com" value={this.state.value} onChange={this.handleChange} />
-                <button className="btn btn-narrow btn-primary rounded-right" onClick={this.handleClick} > Save </button>
-            </div>
+            <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
+              <div className="px4 flex mx2 mt1 mb0">
+                <TextField
+                  value={this.state.value}
+                  hintText="https://github.com/nneves/UrlSearchEngine"
+                  floatingLabelText="Save URL"
+                  fullWidth={true}
+                  onChange={this.handleChange}
+                />
+              </div>
+              <div className="px4 flex mx2 mt0 mb0">
+                <RaisedButton label="Save" primary={true} style={style} onClick={this.handleClick} />
+              </div>
+            </form>
           </div>
         )
     }
