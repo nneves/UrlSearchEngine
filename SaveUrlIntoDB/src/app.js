@@ -31,6 +31,7 @@ function contentDocumentFactory(url, content, title, image) {
     var o = {
         content: content,
         title: title,
+        url: url,
         image: image,
         _id: toid(url + "/" + title) + "/" + ts
     };

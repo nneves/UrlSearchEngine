@@ -21,6 +21,7 @@ export default class Cardlist extends Component {
           id={item.doc._id}
           title={item.doc.title}
           content={item.doc.content}
+          url={item.doc.url}
           image={item.doc.image}
           />
         );

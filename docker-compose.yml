@@ -1,6 +1,22 @@
 version: '2'
 
 services:
+  ui:
+      build: ./SearchEngineUI
+      image: searchengine-ui:0.0.2
+      environment:
+        COUCHDB_HOST: "couchdb"
+        SAVEURL_HOST: "saveurlintodb"
+      ports:
+        - "8080:8080"
+      depends_on: 
+        - couchdb
+        - saveurlintodb
+      networks:
+        senetwork:
+          aliases:
+            - ui
+
   getimagefromurl:
     build: ./GetImageFromURL
     image: searchengine-getimagefromurl:0.2.5
@@ -29,7 +45,7 @@ services:
 
   saveurlintodb:
       build: ./SaveUrlIntoDB
-      image: searchengine-saveurlintodb:0.0.5
+      image: searchengine-saveurlintodb:0.0.6
       environment:
         COUCHDB_HOST: "couchdb"
         IMAGE_HOST: "getimagefromurl"

@@ -23,6 +23,11 @@ import Messages from './Messages/Messages.js';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
+const COUCHDB_HOST = process.env.COUCHDB_HOST || 'localhost';
+const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
+const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME || "searchengine";
+const SAVEURL_HOST = process.env.SAVEURL_HOST || 'localhost';
+const SAVEURL_PORT = process.env.SAVEURL_PORT || 8000;
 
 export default class App extends Component {
 
@@ -44,7 +49,7 @@ export default class App extends Component {
   }
 
   handleSaveSubmit = (urladdress) => {
-    let apiUrl = "http://localhost:8000/url";
+    let apiUrl = `http://${SAVEURL_HOST}:${SAVEURL_PORT}/url`;
     let payload = `url=${urladdress}`;
     //let setState = this.setState.bind(this);
 
@@ -73,7 +78,7 @@ export default class App extends Component {
   handleSearchSubmit = (serchwords) => {
     //curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
     let querystring = serchwords.split(' ').join('+');
-    let apiUrl = `http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=${querystring}&include_docs=true`;
+    let apiUrl = `http://${COUCHDB_HOST}:${COUCHDB_PORT}/_fti/local/${COUCHDB_DBNAME}/_design/search/by_content?q=${querystring}&include_docs=true`;
     console.log(querystring);
 
     fetch(`${apiUrl}`, {
