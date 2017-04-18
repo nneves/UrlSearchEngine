@@ -13,6 +13,9 @@ docker-compose up
 // Initialize CouchDB database, design documents and sample data
 ./couchdb_init.sh
 
+// Open UI
+open http://localhost:8080
+
 // Test GetImageFromURL
 open http://localhost:3000/?url=www.botdream.com&width=1024&height=900
 
@@ -44,14 +47,31 @@ docker-compose build --no-cache
 
 TODO:
 
-- [ ] Finish SeachEngineUI
-- [ ] Bundle SearchEngineUI into an Express.js/Hapi.js webapp
-- [ ] Add Logic to the previous webapp (insert URL content/image into CouchDB document, search content)
+- [] Finish SeachEngineUI
+- [x] Bundle SearchEngineUI into an Hapi.js webapp
+- [] Add Logic to the previous webapp (insert URL content/image into CouchDB document, search content)
 - [ ] Add agent plugin for Email (Read email account to insert links content into CouchDB)
 - [ ] Add agent plugin for Slack/Telegraf (Use NodeRed telegram/slack integration to insert links content into CouchDB)
 
 
 # Run services independently [use only for development]
+
+### UI
+-----------------------
+
+React webapp UI.
+
+For a quick service test run this commands:
+
+```
+cd SearchEngineUI
+
+./docker_build.sh
+./docker_run.sh
+
+open http://localhost:8080
+```
+
 
 ### GetImageFromURL
 -----------------------
