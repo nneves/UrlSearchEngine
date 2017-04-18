@@ -32,6 +32,7 @@ curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/searc
 
 //SaveUrlIntoDB service (POST)
 curl -d 'url=http://www.botdream.com' http://localhost:8000/url
+curl http://localhost:8000/search/botdream | jq .
 
 // shutdown services
 docker-compose stop

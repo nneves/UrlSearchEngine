@@ -45,7 +45,7 @@ services:
 
   saveurlintodb:
       build: ./SaveUrlIntoDB
-      image: searchengine-saveurlintodb:0.0.6
+      image: searchengine-saveurlintodb:0.0.8
       environment:
         COUCHDB_HOST: "couchdb"
         IMAGE_HOST: "getimagefromurl"

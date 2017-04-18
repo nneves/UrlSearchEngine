@@ -1,0 +1,30 @@
+'use strict';
+
+const SERVER_PORT = process.env.SERVER_PORT || 8000;
+
+const COUCHDB_HOST = process.env.COUCHDB_HOST || 'localhost';
+const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
+const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME || "searchengine";
+const CONTENT_HOST = process.env.CONTENT_HOST || 'localhost';
+const CONTENT_PORT = process.env.CONTENT_PORT || 6000;
+const IMAGE_HOST = process.env.IMAGE_HOST || 'localhost';
+const IMAGE_PORT = process.env.IMAGE_PORT || 3000;
+const IMAGE_WIDTH = process.env.IMAGE_WIDTH || 1024;
+const IMAGE_HEIGHT = process.env.IMAGE_HEIGHT || 900;
+const IMAGE_CLIP_WIDTH = process.env.IMAGE_CLIP_WIDTH || 1024;
+const IMAGE_CLIP_HEIGHT = process.env.IMAGE_CLIP_HEIGHT || 900;
+
+module.exports = {
+  SERVER_PORT: SERVER_PORT,
+  COUCHDB_HOST: COUCHDB_HOST,
+  COUCHDB_PORT: COUCHDB_PORT,
+  COUCHDB_DBNAME: COUCHDB_DBNAME,
+  CONTENT_HOST: CONTENT_HOST,
+  CONTENT_PORT: CONTENT_PORT,
+  IMAGE_HOST: IMAGE_HOST,
+  IMAGE_PORT: IMAGE_PORT,
+  IMAGE_WIDTH: IMAGE_WIDTH,
+  IMAGE_HEIGHT: IMAGE_HEIGHT,
+  IMAGE_CLIP_WIDTH: IMAGE_CLIP_WIDTH,
+  IMAGE_CLIP_HEIGHT: IMAGE_CLIP_HEIGHT
+};

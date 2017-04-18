@@ -6,4 +6,4 @@ COPY ./src/ .
 # install node.js modules
 RUN npm install
 
-CMD ["node", "app.js"]
+CMD ["npm", "start"]
