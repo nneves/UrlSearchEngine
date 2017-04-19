@@ -4,7 +4,9 @@ Multi services architecture to Index and Search URLs by it's content using Couch
 
 NOTE: This project is still under heavy development, please expect some WIP!
 
-Quick start (docker and docker-compose required):
+### Quick start
+---------------
+Note: (docker and docker-compose required)
 
 ```
 // Launch all required services
@@ -16,6 +18,13 @@ docker-compose up
 // Open UI
 open http://localhost:8080
 
+```
+
+### Debug Services
+---------------
+Note: (docker and docker-compose required)
+
+```
 // Test GetImageFromURL
 open http://localhost:3000/?url=www.botdream.com&width=1024&height=900
 
@@ -48,9 +57,9 @@ docker-compose build --no-cache
 
 TODO:
 
-- [] Finish SeachEngineUI
+- [x] Finish SeachEngineUI
 - [x] Bundle SearchEngineUI into an Hapi.js webapp
-- [] Add Logic to the previous webapp (insert URL content/image into CouchDB document, search content)
+- [x] Add Logic to the previous webapp (insert URL content/image into CouchDB document, search content)
 - [ ] Add agent plugin for Email (Read email account to insert links content into CouchDB)
 - [ ] Add agent plugin for Slack/Telegraf (Use NodeRed telegram/slack integration to insert links content into CouchDB)
 

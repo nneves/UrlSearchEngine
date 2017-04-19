@@ -3,7 +3,7 @@ version: '2'
 services:
   ui:
       build: ./SearchEngineUI
-      image: searchengine-ui:0.0.3
+      image: searchengine-ui:0.0.4
       environment:
         COUCHDB_HOST: "couchdb"
         DBPROXY_HOST: "dbproxy"

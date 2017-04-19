@@ -1,5 +1,17 @@
 import React, { Component } from 'react';
+
+import * as Colors from 'material-ui/styles/colors';
 import Divider from 'material-ui/Divider';
+import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card';
+import RaisedButton from 'material-ui/RaisedButton';
+
+const style = {
+  margin: 12,
+};
+
+const cardtitleStyle = {
+  backgroundColor: Colors.blueGrey500,
+};
 
 export default class Carditem extends Component {
 
@@ -28,20 +40,37 @@ export default class Carditem extends Component {
 
   render() {
     return (
-      <div name={this.props.id} className='col col-6 sm-col-4 md-col-3 lg-col-2 mb2 px1'>
-        <div className='border bg-white rounded border-black'>
-          <a href={this.getUrl()} target='_blank' className='block'>
-            <img src={this.getImageBase64()} className='block' role='presentation' />
-          </a>
-          <div className="mt1"></div>
-          <Divider/>
-          <div className='p2'>
-            <h1 className='h4 mt0'>{this.props.title}</h1>
+      <div className="mb1 px2 sm-col sm-col-3">
+        <Card>
+          <CardTitle className="bold" subtitle={this.props.title} style={cardtitleStyle} />
+          <div className="mt0">
+            <Divider />
           </div>
-        </div>
+          <CardMedia>
+            <a href={this.getUrl()} target="_blank" className="block">
+              <img src={this.getImageBase64()} className="block" role="presentation" />
+            </a>
+          </CardMedia>
+          <div className="mt1">
+            <Divider />
+          </div>
+          <CardActions>
+            <RaisedButton
+              label="Open"
+              primary={true}
+              style={style}
+              href={this.getUrl()}
+              target="_blank"
+            />
+            <RaisedButton
+              label="Remove"
+              secondary={true}
+              style={style}
+              href="#"
+            />
+          </CardActions>
+        </Card>
       </div>
-    )
+    );
   }
 }
-
-//              <p className='mb0'>{this.trimContent()}</p>

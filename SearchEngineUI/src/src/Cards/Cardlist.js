@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 
+import * as Colors from 'material-ui/styles/colors';
 import Carditem from './Carditem.js';
+
+const styleSearchResults = {
+  backgroundColor: Colors.cyan500,
+};
 
 export default class Cardlist extends Component {
 
@@ -8,11 +13,11 @@ export default class Cardlist extends Component {
     super(props);
 
     this.getListOfItems = this.getListOfItems.bind(this);
-  }
+  };
 
   getListOfItems() {
     if (this.props.searchdata.total_rows === 0) {
-      return (<div></div>);
+      return (<div />);
     }
 
     return this.props.searchdata.rows.map((item) => {
@@ -26,23 +31,22 @@ export default class Cardlist extends Component {
           />
         );
     });
-  }
+  };
 
   render() {
-      return (
-        <div className='mx4 mt3'>
-            <div className='border center bold rounded-top bg-black white'>
-                Search Results
-            </div>
-            <div className="hide"><pre>{JSON.stringify(this.props.searchdata, null, 2) }</pre></div>
-            <div className='flex'>
-                <section className='container py2'>
-                { this.getListOfItems() }
-                </section>
-            </div>
-
+    return (
+      <div className="mx4 mt3">
+        <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
+          Search Results
         </div>
-      )
-
+        <div className="flex">
+          <section className="container py2">
+            <div className="clearfix mxn2">
+              { this.getListOfItems() }
+            </div>
+          </section>
+        </div>
+      </div>
+    );
   }
 }
