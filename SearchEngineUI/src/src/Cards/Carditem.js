@@ -9,8 +9,13 @@ const style = {
   margin: 12,
 };
 
+const pixelV = {
+  height: 1,
+};
+
 const cardtitleStyle = {
   backgroundColor: Colors.blueGrey500,
+  height: 75,
 };
 
 export default class Carditem extends Component {
@@ -51,9 +56,8 @@ export default class Carditem extends Component {
               <img src={this.getImageBase64()} className="block" role="presentation" />
             </a>
           </CardMedia>
-          <div className="mt1">
-            <Divider />
-          </div>
+          <div style={pixelV} />
+          <Divider />
           <CardActions>
             <RaisedButton
               label="Open"
