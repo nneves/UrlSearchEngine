@@ -1,6 +1,6 @@
 # UrlSearchEngine
 
-Multi services architecture to Index and Search URLs by it's content using CouchDB+Lucene as a SearchEngine. 
+Modular services architecture to Index and Search URLs by it's content using CouchDB+Lucene as a SearchEngine.
 
 NOTE: This project is still under heavy development, please expect some WIP!
 
