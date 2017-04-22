@@ -1,6 +1,18 @@
 version: '2'
 
 services:
+  databaseinit:
+      build: ./DatabaseInit
+      image: searchengine-databaseinit:0.0.1
+      environment:
+        COUCHDB_HOST: "couchdb"
+      depends_on: 
+        - couchdb
+      networks:
+        senetwork:
+          aliases:
+            - databaseinit
+
   ui:
       build: ./SearchEngineUI
       image: searchengine-ui:0.0.5

@@ -12,9 +12,6 @@ Note: (docker and docker-compose required)
 // Launch all required services
 docker-compose up
 
-// Initialize CouchDB database, design documents and sample data
-./couchdb_init.sh
-
 // Open UI
 open http://localhost:8080
 
@@ -65,6 +62,21 @@ TODO:
 
 
 # Run services independently [use only for development]
+
+### Database Initializer
+-----------------------
+
+Couchdb database initializer.
+
+For a quick service test run this commands:
+
+```
+cd DatabaseInit
+
+./docker_build.sh
+./docker_run.sh
+
+```
 
 ### UI
 -----------------------
