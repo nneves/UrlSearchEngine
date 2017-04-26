@@ -9,6 +9,9 @@ NOTE: This project is still under heavy development, please expect some WIP!
 Note: (docker and docker-compose required)
 
 ```
+// Build docker containers (1st time)
+docker-compose build
+
 // Launch all required services
 docker-compose up
 
