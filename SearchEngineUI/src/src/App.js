@@ -74,12 +74,12 @@ export default class App extends Component {
       if (response.result !== "success") {
         throw new Error(response.message);
       }
-      this.handleMessage(`${urladdress} saved with success!`);
+      this.handleMessage(`Success: ${urladdress}`);
       this.setState({idleStatus: true});
     })
     .catch((err) => {
       console.log(err);
-      this.handleMessage(`Failed to save ${urladdress}! Error: ${err.message}`);
+      this.handleMessage(`Error: ${err.message}`);
       this.setState({idleStatus: true});
     });
   };
@@ -103,13 +103,13 @@ export default class App extends Component {
         throw new Error(response.message);
       }
       console.log(response);
-      this.handleMessage(`${serchwords} search completed!`);
+      this.handleMessage(`Success: ${serchwords}`);
       this.setState({searchdata: response.data});
       this.setState({idleStatus: true});
     })
     .catch((err) => {
       console.log(err);
-      this.handleMessage(`Failed to search ${serchwords}! Error: ${err.message}`);
+      this.handleMessage(`Error: ${err.message}`);
       this.setState({idleStatus: true});
     });
   };

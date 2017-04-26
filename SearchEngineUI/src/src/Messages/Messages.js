@@ -6,7 +6,7 @@ export default class SnackbarExampleSimple extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      autoHideDuration: 5000,
+      autoHideDuration: 30000,
       message: 'Initial message ...',
       open: false,
     };
@@ -16,7 +16,7 @@ export default class SnackbarExampleSimple extends React.Component {
 
   showMessage = (msg) => {
     this.setState({
-      message: msg,
+      message: msg.substring(0,50),
       open: true,
     });
   };
