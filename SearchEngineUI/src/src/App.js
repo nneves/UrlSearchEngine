@@ -12,6 +12,8 @@ import Cardlist from './Cards/Cardlist.js';
 import Messages from './Messages/Messages.js';
 import Toolbar from './Toolbar/Toolbar.js';
 
+import CircularProgress from 'material-ui/CircularProgress';
+
 //import RaisedButton from 'material-ui/RaisedButton';
 
 // Needed for onTouchTap
@@ -20,6 +22,10 @@ injectTapEventPlugin();
 
 const DBPROXY_HOST = process.env.DBPROXY_HOST || 'localhost';
 const DBPROXY_PORT = process.env.DBPROXY_PORT || 8000;
+
+const styleCircularProgress = {
+  height: 24,
+};
 
 export default class App extends Component {
 
@@ -30,7 +36,8 @@ export default class App extends Component {
         "total_rows": 0,
         "rows": []
       },
-      visibleSaveURL: false
+      visibleSaveURL: false,
+      idleStatus: true
     };
     this.handleToggleVisibleSaveURL = this.handleToggleVisibleSaveURL.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
@@ -51,6 +58,8 @@ export default class App extends Component {
     let payload = `url=${urladdress}`;
     //let setState = this.setState.bind(this);
 
+    this.setState({idleStatus: false});
+
     fetch(`${apiUrl}`, {
       method: 'POST',
       headers: {
@@ -66,10 +75,12 @@ export default class App extends Component {
         throw new Error(response.message);
       }
       this.handleMessage(`${urladdress} saved with success!`);
+      this.setState({idleStatus: true});
     })
     .catch((err) => {
       console.log(err);
       this.handleMessage(`Failed to save ${urladdress}! Error: ${err.message}`);
+      this.setState({idleStatus: true});
     });
   };
 
@@ -77,6 +88,7 @@ export default class App extends Component {
     let querystring = serchwords.split(' ').join('+');
     let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/search/${querystring}`;
     console.log(querystring);
+    this.setState({idleStatus: false});
 
     fetch(`${apiUrl}`, {
       method: 'GET',
@@ -93,10 +105,12 @@ export default class App extends Component {
       console.log(response);
       this.handleMessage(`${serchwords} search completed!`);
       this.setState({searchdata: response.data});
+      this.setState({idleStatus: true});
     })
     .catch((err) => {
       console.log(err);
       this.handleMessage(`Failed to search ${serchwords}! Error: ${err.message}`);
+      this.setState({idleStatus: true});
     });
   };
 
@@ -114,6 +128,14 @@ export default class App extends Component {
           saveSubmit={this.handleSaveSubmit}
         />
         <SearchPanel searchSubmit={this.handleSearchSubmit} />
+
+        <div className="mt2 mb0 center" style={styleCircularProgress}>
+          <CircularProgress
+            className={this.state.idleStatus ? "hide" : "show"}
+            size={24} thickness={2}
+          />
+        </div>
+
         <Cardlist searchdata={this.state.searchdata} />
       </div>
       </MuiThemeProvider>

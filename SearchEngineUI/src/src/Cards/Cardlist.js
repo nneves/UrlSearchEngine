@@ -35,7 +35,7 @@ export default class Cardlist extends Component {
 
   render() {
     return (
-      <div className="mx4 mt3">
+      <div className="mx4 mt2">
         <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
           Search Results
         </div>
