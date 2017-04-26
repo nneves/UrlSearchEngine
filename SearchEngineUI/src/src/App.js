@@ -6,16 +6,11 @@ import ApiUtils from './ApiUtils.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-//import Avatar from 'material-ui/Avatar';
-//import Chip from 'material-ui/Chip';
-
-//import {Card, CardActions, CardHeader, CardMedia, CardTitle, CardText} from 'material-ui/Card';
-//import FlatButton from 'material-ui/FlatButton';
-
 import SearchPanel from './Search/Search.js';
 import SavePanel from './Save/Save.js';
 import Cardlist from './Cards/Cardlist.js';
 import Messages from './Messages/Messages.js';
+import Toolbar from './Toolbar/Toolbar.js';
 
 //import RaisedButton from 'material-ui/RaisedButton';
 
@@ -34,8 +29,10 @@ export default class App extends Component {
       searchdata: {
         "total_rows": 0,
         "rows": []
-      }
+      },
+      visibleSaveURL: false
     };
+    this.handleToggleVisibleSaveURL = this.handleToggleVisibleSaveURL.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.handleSaveSubmit = this.handleSaveSubmit.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
@@ -44,6 +41,10 @@ export default class App extends Component {
   handleMessage = (msg) => {
     this.messages.showMessage(msg);
   }
+
+  handleToggleVisibleSaveURL = (visible) => {
+    this.setState({visibleSaveURL: visible});
+  };
 
   handleSaveSubmit = (urladdress) => {
     let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/url`;
@@ -103,9 +104,16 @@ export default class App extends Component {
     return (
       <MuiThemeProvider>
       <div>
+        <Toolbar
+          visibleSaveURL={this.state.visibleSaveURL}
+          toggleVisibleSaveURL={this.handleToggleVisibleSaveURL}
+        />
         <Messages ref={(messages) => { this.messages = messages; }} />
-        <SavePanel saveSubmit={this.handleSaveSubmit.bind(this)} />
-        <SearchPanel searchSubmit={this.handleSearchSubmit.bind(this)} />
+        <SavePanel
+          visibleSaveURL={this.state.visibleSaveURL}
+          saveSubmit={this.handleSaveSubmit}
+        />
+        <SearchPanel searchSubmit={this.handleSearchSubmit} />
         <Cardlist searchdata={this.state.searchdata} />
       </div>
       </MuiThemeProvider>

@@ -50,3 +50,7 @@ export default class Cardlist extends Component {
     );
   }
 }
+
+Cardlist.propTypes = {
+  searchdata: React.PropTypes.object
+};

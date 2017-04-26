@@ -10,7 +10,9 @@ const style = {
 export default class SavePanel extends Component {
     constructor(props) {
       super(props);
-      this.state = {value: ''};
+      this.state = {
+        value: '',
+      };
 
       this.handleChange = this.handleChange.bind(this);
       this.handleClick = this.handleClick.bind(this);
@@ -25,27 +27,29 @@ export default class SavePanel extends Component {
     }
 
     render() {
-        return (
-          <div>
-            <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
-              <div className="px4 flex mx2 mt1 mb0">
-                <TextField
-                  value={this.state.value}
-                  hintText="https://github.com/nneves/UrlSearchEngine"
-                  floatingLabelText="Save URL"
-                  fullWidth={true}
-                  onChange={this.handleChange}
-                />
-              </div>
-              <div className="px4 flex mx2 mt0 mb0">
-                <RaisedButton label="Save" primary={true} style={style} onClick={this.handleClick} />
-              </div>
-            </form>
-          </div>
-        )
+      let visibleClassName = this.props.visibleSaveURL ? 'show' : 'hide';
+      return (
+        <div className={visibleClassName}>
+          <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
+            <div className="px4 flex mx2 mt1 mb0">
+              <TextField
+                value={this.state.value}
+                hintText="https://github.com/nneves/UrlSearchEngine"
+                floatingLabelText="Save URL"
+                fullWidth={true}
+                onChange={this.handleChange}
+              />
+            </div>
+            <div className="px4 flex mx2 mt0 mb0">
+              <RaisedButton label="Save" primary={true} style={style} onClick={this.handleClick} />
+            </div>
+          </form>
+        </div>
+      )
     }
 }
 
 SavePanel.propTypes = {
   saveSubmit: React.PropTypes.func,
+  visibleSaveURL: React.PropTypes.bool
 };
