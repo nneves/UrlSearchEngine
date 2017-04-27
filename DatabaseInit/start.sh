@@ -41,10 +41,10 @@ done;
 set -e;
 
 # verify if database requires initialization
-if [[ ! -f "/.dbinitdone" ]]; then
+if [[ ! -f "/dbinitstatus/.dbinitdone" ]]; then
   echo "Run database initialization command [.dbinitdone not found]";
   # note: if init fails, toch and npm start will never run
-  npm run init && touch /.dbinitdone && npm start;
+  npm run init && touch /dbinitstatus/.dbinitdone && npm start;
 else
   echo "Database already initialized! [found .dbinitdone]";
   npm start;

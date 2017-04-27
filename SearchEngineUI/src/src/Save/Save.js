@@ -35,7 +35,7 @@ export default class SavePanel extends Component {
               <TextField
                 value={this.state.value}
                 hintText="https://github.com/nneves/UrlSearchEngine"
-                floatingLabelText="Save URL"
+                floatingLabelText="Add URL"
                 fullWidth={true}
                 onChange={this.handleChange}
               />

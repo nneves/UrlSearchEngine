@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build --no-cache -t searchengine-ui:0.0.6 .
+docker build --no-cache -t searchengine-ui:0.0.8 .

@@ -59,7 +59,7 @@ export default class Toolbar extends Component {
           onRequestClose={this.handleRequestCloseMenuitem}
         >
           <Menu>
-            <MenuItem primaryText="Save URL" onTouchTap={this.handleTouchTapOptions} />
+            <MenuItem primaryText="Add URL" onTouchTap={this.handleTouchTapOptions} />
           </Menu>
         </Popover>
       </div>

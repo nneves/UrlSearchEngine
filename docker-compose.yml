@@ -2,39 +2,40 @@ version: '2'
 
 services:
   databaseinit:
-      build: ./DatabaseInit
-      image: searchengine-databaseinit:0.0.1
-      environment:
-        COUCHDB_HOST: "couchdb"
-      depends_on: 
-        - couchdb
-      networks:
-        senetwork:
-          aliases:
-            - databaseinit
+    build: ./DatabaseInit
+    image: searchengine-databaseinit:0.0.2
+    volumes:
+      - "$PWD/DatabaseInit/dbinitstatus:/dbinitstatus"
+    environment:
+      COUCHDB_HOST: "couchdb"
+    depends_on: 
+      - couchdb
+    networks:
+      senetwork:
+        aliases:
+          - databaseinit
 
   ui:
-      build: ./SearchEngineUI
-      image: searchengine-ui:0.0.6
-      environment:
-        COUCHDB_HOST: "couchdb"
-        DBPROXY_HOST: "dbproxy"
-      ports:
-        - "8080:8080"
-      depends_on: 
-        - couchdb
-        - dbproxy
-      networks:
-        senetwork:
-          aliases:
-            - ui
+    build: ./SearchEngineUI
+    image: searchengine-ui:0.0.8
+    restart: always
+    environment:
+      COUCHDB_HOST: "couchdb"
+      DBPROXY_HOST: "dbproxy"
+    ports:
+      - "8080:8080"
+    depends_on: 
+      - couchdb
+      - dbproxy
+    networks:
+      senetwork:
+        aliases:
+          - ui
 
   getimagefromurl:
     build: ./GetImageFromURL
     image: searchengine-getimagefromurl:0.2.5
     restart: always
-    ports:
-      - "3000:3000"
     volumes:
       - "$PWD/GetImageFromURL/tmp:/tmp"
     networks:
@@ -46,8 +47,6 @@ services:
     build: ./GetContentFromURL
     image: searchengine-getcontentfromurl:0.0.7
     restart: always
-    ports:
-      - "6000:6000"
     volumes:
       - "$PWD/GetContentFromURL/tmp:/tmp"
     networks:
@@ -56,30 +55,30 @@ services:
           - getcontentfromurl
 
   dbproxy:
-      build: ./DBProxy
-      image: searchengine-dbproxy:0.0.1
-      environment:
-        COUCHDB_HOST: "couchdb"
-        IMAGE_HOST: "getimagefromurl"
-        CONTENT_HOST: "getcontentfromurl"
-      ports:
-        - "8000:8000"
-      depends_on: 
-        - couchdb
-        - couchdb-lucene
-        - getcontentfromurl
-        - getimagefromurl
-      networks:
-        senetwork:
-          aliases:
-            - dbproxy
+    build: ./DBProxy
+    image: searchengine-dbproxy:0.0.1
+    restart: always
+    environment:
+      COUCHDB_HOST: "couchdb"
+      IMAGE_HOST: "getimagefromurl"
+      CONTENT_HOST: "getcontentfromurl"
+    ports:
+      - "8000:8000"
+    depends_on: 
+      - couchdb
+      - couchdb-lucene
+      - getcontentfromurl
+      - getimagefromurl
+    networks:
+      senetwork:
+        aliases:
+          - dbproxy
 
   couchdb:
     build:
       context: ./CouchDBLucene/
       dockerfile: ./Dockerfile-couchdb
-    ports:
-      - "5984:5984"
+    restart: always
     networks:
       senetwork:
         aliases:
@@ -87,6 +86,7 @@ services:
 
   couchdb-lucene:
     image: klaemo/couchdb-lucene:latest
+    restart: always
     networks:
       senetwork:
         aliases:

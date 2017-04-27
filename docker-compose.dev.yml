@@ -1,0 +1,24 @@
+version: '2'
+
+services:
+  ui:
+    volumes:
+      - "$PWD/SearchEngineUI/src:/src"
+    # ports:
+    #   - "8080:8080"
+
+  getimagefromurl:
+    ports:
+      - "3000:3000"
+
+  getcontentfromurl:
+    ports:
+      - "6000:6000"
+
+  # dbproxy:
+  #   ports:
+  #     - "8000:8000"
+
+  couchdb:
+    ports:
+      - "5984:5984"
