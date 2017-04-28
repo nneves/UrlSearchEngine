@@ -47,8 +47,6 @@ open http://localhost:5984/_utils/database.html\?searchengine/_all_docs
 // Test CouchDB+Lucene search
 curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/search/by_content?q=brilliant&include_docs=true | jq .
 
-// Insert CouchDB Document [TODO => use CouchDB UI to manual insert data, or look into CouchDBLucene/database_init.sh script or use SendFavoritesToCouchDB app with Chrome Bookmarks file]
-
 //DBProxy service
 [POST] curl -d 'url=http://www.botdream.com' http://localhost:8000/url
 [GET] curl http://localhost:8000/search/botdream | jq .
