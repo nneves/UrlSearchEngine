@@ -13,10 +13,10 @@ Note: (docker and docker-compose required)
 docker-compose build
 
 // Launch all required services
-// [PRODUCTION] 
+# [PRODUCTION]
 docker-compose up
 
-// [DEVELOPMENT]
+# [DEVELOPMENT]
 docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
 
 // Open UI
@@ -24,7 +24,7 @@ open http://localhost:8080
 
 ```
 
-Note: for a full CouchDB data reset run (warning, all will be erased) :
+Note: for a full CouchDB data reset run (warning, all data will be erased):
 
 ```
 docker-compose rm && DatabaseInit/dbinitstatus/.dbinitdone
