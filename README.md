@@ -27,7 +27,7 @@ open http://localhost:8080
 Note: for a full CouchDB data reset run (warning, all data will be erased):
 
 ```
-docker-compose rm && DatabaseInit/dbinitstatus/.dbinitdone
+docker-compose rm && rm DatabaseInit/dbinitstatus/.dbinitdone
 ```
 
 ### Debug Services
