@@ -13,6 +13,7 @@ export default class Cardlist extends Component {
     super(props);
 
     this.getListOfItems = this.getListOfItems.bind(this);
+    this.getCountOfItems = this.getCountOfItems.bind(this);
   };
 
   getListOfItems() {
@@ -33,11 +34,19 @@ export default class Cardlist extends Component {
     });
   };
 
+  getCountOfItems() {
+    if (this.props.searchdata.total_rows > 0) {
+      let counter = `[${this.props.searchdata.total_rows}]`;
+      return counter;
+    }
+    return "";
+  };
+
   render() {
     return (
       <div className="mx4 mt2">
         <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
-          Search Results
+          Search Results {this.getCountOfItems()}
         </div>
         <div className="flex">
           <section className="container py2">
