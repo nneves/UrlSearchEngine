@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker build --no-cache -t searchengine-dbproxy:0.0.1 .
+docker build --no-cache -t searchengine-dbproxy:0.0.2 .

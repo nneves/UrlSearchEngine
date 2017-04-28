@@ -49,6 +49,7 @@ curl -X GET --silent http://localhost:5984/_fti/local/searchengine/_design/searc
 
 //DBProxy service
 [POST] curl -d 'url=http://www.botdream.com' http://localhost:8000/url
+[DELETE] curl -X DELETE http://localhost:8000/remove/http-botdream-com-botdream-com-botdream-com%2F2017-04-21T23%3A11%3A04.910Z | jq .
 [GET] curl http://localhost:8000/search/botdream | jq .
 
 // shutdown services

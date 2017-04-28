@@ -20,15 +20,16 @@ export default class Cardlist extends Component {
     if (this.props.searchdata.total_rows === 0) {
       return (<div />);
     }
-
     return this.props.searchdata.rows.map((item) => {
-        return ( <Carditem
-          key={item.doc._id}
-          id={item.doc._id}
-          title={item.doc.title}
-          content={item.doc.content}
-          url={item.doc.url}
-          image={item.doc.image}
+        return (
+          <Carditem
+            removeSubmit={this.props.removeSubmit}
+            key={item.doc._id}
+            id={item.doc._id}
+            title={item.doc.title}
+            content={item.doc.content}
+            url={item.doc.url}
+            image={item.doc.image}
           />
         );
     });
@@ -61,5 +62,6 @@ export default class Cardlist extends Component {
 }
 
 Cardlist.propTypes = {
-  searchdata: React.PropTypes.object
+  searchdata: React.PropTypes.object,
+  removeSubmit: React.PropTypes.func
 };

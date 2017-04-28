@@ -10,7 +10,7 @@ function search(searchwords) {
 };
 
 function searchHandler(request, reply) {
-    const searchwords = request.params.searchwords ? encodeURIComponent(request.params.searchwords) : '';
+    var searchwords = request.params.searchwords ? encodeURIComponent(request.params.searchwords) : '';
     var response = {"result":"", "message":""};
 
     Promise.all([
@@ -18,7 +18,6 @@ function searchHandler(request, reply) {
     ])
     .then(function(data) {
         if (data[0].hasOwnProperty("etag") && data[0].etag != "") {
-            console.log(" ERROR ");
             throw new Error(data[0].error);
         }
         return data[0];

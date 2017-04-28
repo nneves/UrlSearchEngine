@@ -43,6 +43,7 @@ export default class App extends Component {
     this.handleMessage = this.handleMessage.bind(this);
     this.handleSaveSubmit = this.handleSaveSubmit.bind(this);
     this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
+    this.handleRemoveSubmit = this.handleRemoveSubmit.bind(this);
   }
 
   handleMessage = (msg) => {
@@ -84,10 +85,36 @@ export default class App extends Component {
     });
   };
 
+  handleRemoveSubmit = (docid) => {
+    let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/remove/${encodeURIComponent(docid)}`;
+
+    this.setState({idleStatus: false});
+
+    fetch(`${apiUrl}`, {
+      method: 'DELETE',
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+    .then(ApiUtils.checkStatus)
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.result !== "success") {
+        throw new Error(response.message);
+      }
+      this.handleMessage(`Success: ${docid}`);
+      this.setState({idleStatus: true});
+    })
+    .catch((err) => {
+      console.log(err);
+      this.handleMessage(`Error: ${err.message}`);
+      this.setState({idleStatus: true});
+    });
+  };
+
   handleSearchSubmit = (serchwords) => {
     let querystring = serchwords.split(' ').join('+');
     let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/search/${querystring}`;
-    console.log(querystring);
     this.setState({idleStatus: false});
 
     fetch(`${apiUrl}`, {
@@ -102,7 +129,6 @@ export default class App extends Component {
       if (response.result !== "success") {
         throw new Error(response.message);
       }
-      console.log(response);
       this.handleMessage(`Success: ${serchwords}`);
       this.setState({searchdata: response.data});
       this.setState({idleStatus: true});
@@ -122,21 +148,32 @@ export default class App extends Component {
           visibleSaveURL={this.state.visibleSaveURL}
           toggleVisibleSaveURL={this.handleToggleVisibleSaveURL}
         />
-        <Messages ref={(messages) => { this.messages = messages; }} />
+
+        <Messages
+          ref={(messages) => { this.messages = messages; }}
+        />
+
         <SavePanel
           visibleSaveURL={this.state.visibleSaveURL}
           saveSubmit={this.handleSaveSubmit}
         />
-        <SearchPanel searchSubmit={this.handleSearchSubmit} />
+
+        <SearchPanel
+          searchSubmit={this.handleSearchSubmit}
+        />
 
         <div className="mt2 mb0 center" style={styleCircularProgress}>
           <CircularProgress
             className={this.state.idleStatus ? "hide" : "show"}
-            size={24} thickness={2}
+            size={24}
+            thickness={2}
           />
         </div>
 
-        <Cardlist searchdata={this.state.searchdata} />
+        <Cardlist
+          searchdata={this.state.searchdata}
+          removeSubmit={this.handleRemoveSubmit}
+        />
       </div>
       </MuiThemeProvider>
     );

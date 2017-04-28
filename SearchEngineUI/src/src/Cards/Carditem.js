@@ -26,6 +26,7 @@ export default class Carditem extends Component {
     this.trimContent = this.trimContent.bind(this);
     this.getImageBase64 = this.getImageBase64.bind(this);
     this.getUrl = this.getUrl.bind(this);
+    this.handleTouchTap = this.handleTouchTap.bind(this);
   }
 
   trimContent() {
@@ -41,6 +42,10 @@ export default class Carditem extends Component {
     if (url.toLowerCase().indexOf("http") === -1)
       url = "http://" + url;
     return (url);
+  }
+
+  handleTouchTap(event) {
+    this.props.removeSubmit(this.props.id);
   }
 
   render() {
@@ -70,7 +75,7 @@ export default class Carditem extends Component {
               label="Remove"
               secondary={true}
               style={style}
-              href="#"
+              onTouchTap={this.handleTouchTap}
             />
           </CardActions>
         </Card>
@@ -78,3 +83,12 @@ export default class Carditem extends Component {
     );
   }
 }
+
+Carditem.propTypes = {
+  id: React.PropTypes.string,
+  title: React.PropTypes.string,
+  content: React.PropTypes.string,
+  url: React.PropTypes.string,
+  image: React.PropTypes.string,
+  removeSubmit: React.PropTypes.func
+};

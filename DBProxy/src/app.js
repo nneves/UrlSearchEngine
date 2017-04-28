@@ -10,6 +10,7 @@ var Joi = require('joi');
 var base64Img = require('base64-img');
 var env = require('./envvars.js');
 var dbPost = require('./db/post.js');
+var dbRemove = require('./db/remove.js');
 var dbSearch = require('./db/search.js');
 
 const server = new Hapi.Server();
@@ -20,6 +21,11 @@ server.route([
         method: 'POST',
         path: '/url',
         config: dbPost.postUrlConfig
+    },
+    {
+        method: 'DELETE',
+        path: '/remove/{docid}',
+        config: dbRemove.removeConfig
     },
     {
         method: 'GET',

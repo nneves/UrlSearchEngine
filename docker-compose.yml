@@ -17,7 +17,7 @@ services:
 
   ui:
     build: ./SearchEngineUI
-    image: searchengine-ui:0.0.10
+    image: searchengine-ui:0.0.11
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"
@@ -56,7 +56,7 @@ services:
 
   dbproxy:
     build: ./DBProxy
-    image: searchengine-dbproxy:0.0.1
+    image: searchengine-dbproxy:0.0.2
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"
