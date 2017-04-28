@@ -17,7 +17,7 @@ services:
 
   ui:
     build: ./SearchEngineUI
-    image: searchengine-ui:0.0.8
+    image: searchengine-ui:0.0.9
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"

@@ -45,7 +45,7 @@ export default class Carditem extends Component {
 
   render() {
     return (
-      <div className="mb1 px2 sm-col sm-col-3">
+      <div className="mb3 px2 sm-col sm-col-3">
         <Card>
           <CardTitle className="bold" subtitle={this.props.title} style={cardtitleStyle} />
           <div className="mt0">
