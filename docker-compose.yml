@@ -79,6 +79,8 @@ services:
       context: ./CouchDBLucene/
       dockerfile: ./Dockerfile-couchdb
     restart: always
+    volumes:
+      - "$PWD/data:/opt/couchdb/data"
     networks:
       senetwork:
         aliases:
