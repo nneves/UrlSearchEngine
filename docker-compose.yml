@@ -80,7 +80,7 @@ services:
       dockerfile: ./Dockerfile-couchdb
     restart: always
     volumes:
-      - "$PWD/data:/opt/couchdb/data"
+      - "$PWD/CouchDBLucene/Data:/usr/local/var/lib/couchdb"
     networks:
       senetwork:
         aliases:
