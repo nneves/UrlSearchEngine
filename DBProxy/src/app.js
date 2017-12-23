@@ -12,6 +12,7 @@ var env = require('./envvars.js');
 var dbPost = require('./db/post.js');
 var dbRemove = require('./db/remove.js');
 var dbSearch = require('./db/search.js');
+var dbBookmark= require('./db/bookmark.js');
 
 const server = new Hapi.Server();
 server.connection({ port: env.SERVER_PORT });
@@ -31,7 +32,12 @@ server.route([
         method: 'GET',
         path: '/search/{searchwords}',
         config: dbSearch.searchConfig
-    }
+    },
+    {
+        method: 'POST',
+        path: '/bookmarks',
+        config: dbBookmark.config
+    },
 ]);
 
 server.start((err) => {

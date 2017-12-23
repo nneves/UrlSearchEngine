@@ -4,7 +4,7 @@
   "description": "save a given URL into the full text engine DB",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -18,9 +18,7 @@
     "pouchdb-browser": "6.1.0",
     "request": "2.79.0",
     "request-promise": "4.1.1",
+    "split": "1.0.1",
     "to-id": "1.0.5"
-  },
-  "scripts": {
-    "start": "node app.js"
   }
 }

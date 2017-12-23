@@ -5,6 +5,7 @@ const SERVER_PORT = process.env.SERVER_PORT || 8000;
 const COUCHDB_HOST = process.env.COUCHDB_HOST || 'localhost';
 const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
 const COUCHDB_DBNAME = process.env.COUCHDB_DBNAME || "searchengine";
+const COUCHDB_DBBOOKMARK = process.env.COUCHDB_DBBOOKMARK || "bookmarkengine";
 const CONTENT_HOST = process.env.CONTENT_HOST || 'localhost';
 const CONTENT_PORT = process.env.CONTENT_PORT || 6000;
 const IMAGE_HOST = process.env.IMAGE_HOST || 'localhost';
@@ -19,6 +20,7 @@ module.exports = {
   COUCHDB_HOST: COUCHDB_HOST,
   COUCHDB_PORT: COUCHDB_PORT,
   COUCHDB_DBNAME: COUCHDB_DBNAME,
+  COUCHDB_DBBOOKMARK: COUCHDB_DBBOOKMARK,
   CONTENT_HOST: CONTENT_HOST,
   CONTENT_PORT: CONTENT_PORT,
   IMAGE_HOST: IMAGE_HOST,
