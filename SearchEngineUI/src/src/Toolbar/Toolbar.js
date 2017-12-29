@@ -25,7 +25,13 @@ export default class Toolbar extends Component {
       open: false,
       anchorEl: event.currentTarget
     });
-    this.props.toggleVisibleSaveURL(!this.props.visibleSaveURL);
+    if(event.currentTarget.id === "addUrl") {
+      this.props.toggleVisibleSaveURL(!this.props.visibleSaveURL);
+      this.props.toggleVisibleBookmarksUpload(false);
+    } else if(event.currentTarget.id === "bookmarksUpload") {
+      this.props.toggleVisibleSaveURL(false);
+      this.props.toggleVisibleBookmarksUpload(!this.props.visibleBookmarksUpload);
+    }
   };
 
   handleTouchTapMenuitem = (event) => {
@@ -59,7 +65,8 @@ export default class Toolbar extends Component {
           onRequestClose={this.handleRequestCloseMenuitem}
         >
           <Menu>
-            <MenuItem primaryText="Add URL" onTouchTap={this.handleTouchTapOptions} />
+            <MenuItem id="addUrl" primaryText="Add URL" onTouchTap={this.handleTouchTapOptions} />
+            <MenuItem id="bookmarksUpload" primaryText="Bookmarks Upload" onTouchTap={this.handleTouchTapOptions} />
           </Menu>
         </Popover>
       </div>
@@ -69,5 +76,7 @@ export default class Toolbar extends Component {
 
 Toolbar.propTypes = {
   toggleVisibleSaveURL: React.PropTypes.func,
-  visibleSaveURL: React.PropTypes.bool
+  toggleVisibleBookmarksUpload: React.PropTypes.func,
+  visibleSaveURL: React.PropTypes.bool,
+  visibleBookmarksUpload: React.PropTypes.bool,
 };

@@ -38,9 +38,28 @@ server.route([
         path: '/bookmarks',
         config: dbBookmark.config
     },
+    {
+        method: 'POST',
+        path: '/bookmarkchunks',
+        config: dbBookmark.configChunks
+    },
+    {
+        method: 'POST',
+        path: '/bookmarkchunkscompleted',
+        config: dbBookmark.configChunksCompleted
+    },
 ]);
 
 server.start((err) => {
+
+    // HTTP Debug requests
+    /*
+    server.on('response', function (request) {
+        console.log("-------------------------------");
+        console.log(request.info.remoteAddress + ': ' + request.method.toUpperCase() + ' ' + request.url.path + ' --> ' + request.response.statusCode);
+        console.log(request.info);
+        console.log("-------------------------------");
+    });*/
 
     if (err) {
         throw err;

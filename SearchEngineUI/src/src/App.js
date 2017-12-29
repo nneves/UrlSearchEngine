@@ -11,6 +11,7 @@ import SavePanel from './Save/Save.js';
 import Cardlist from './Cards/Cardlist.js';
 import Messages from './Messages/Messages.js';
 import Toolbar from './Toolbar/Toolbar.js';
+import UploadBookmark from './Bookmarks/UploadBookmark.js';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
@@ -39,11 +40,6 @@ export default class App extends Component {
       visibleSaveURL: false,
       idleStatus: true
     };
-    this.handleToggleVisibleSaveURL = this.handleToggleVisibleSaveURL.bind(this);
-    this.handleMessage = this.handleMessage.bind(this);
-    this.handleSaveSubmit = this.handleSaveSubmit.bind(this);
-    this.handleSearchSubmit = this.handleSearchSubmit.bind(this);
-    this.handleRemoveSubmit = this.handleRemoveSubmit.bind(this);
   }
 
   handleMessage = (msg) => {
@@ -52,6 +48,10 @@ export default class App extends Component {
 
   handleToggleVisibleSaveURL = (visible) => {
     this.setState({visibleSaveURL: visible});
+  };
+
+  handleToggleVisibleBookmarksUpload = (visible) => {
+    this.setState({visibleBookmarksUpload: visible});
   };
 
   handleSaveSubmit = (urladdress) => {
@@ -147,6 +147,8 @@ export default class App extends Component {
         <Toolbar
           visibleSaveURL={this.state.visibleSaveURL}
           toggleVisibleSaveURL={this.handleToggleVisibleSaveURL}
+          visibleBookmarksUpload={this.state.visibleBookmarksUpload}
+          toggleVisibleBookmarksUpload={this.handleToggleVisibleBookmarksUpload}
         />
 
         <Messages
@@ -156,6 +158,10 @@ export default class App extends Component {
         <SavePanel
           visibleSaveURL={this.state.visibleSaveURL}
           saveSubmit={this.handleSaveSubmit}
+        />
+
+        <UploadBookmark
+          visibleBookmarksUpload={this.state.visibleBookmarksUpload}
         />
 
         <SearchPanel
