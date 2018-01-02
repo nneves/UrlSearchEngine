@@ -24,12 +24,12 @@ export default class SearchPanel extends Component {
   }
 
   handleClick(event) {
-    this.props.searchSubmit(this.state.value);
+    this.props.submit(this.state.value);
   }
 
   render() {
     return (
-      <div>
+      <div className={this.props.visible ? 'show' : 'hide'}>
         <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
           <div className="px4 flex mx2 mt1 mb0">
             <TextField
@@ -55,5 +55,6 @@ export default class SearchPanel extends Component {
 }
 
 SearchPanel.propTypes = {
-  searchSubmit: React.PropTypes.func
+  visible: React.PropTypes.bool,
+  submit: React.PropTypes.func
 };

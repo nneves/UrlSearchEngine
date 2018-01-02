@@ -25,12 +25,18 @@ export default class Toolbar extends Component {
       open: false,
       anchorEl: event.currentTarget
     });
-    if(event.currentTarget.id === "addLink") {
-      this.props.toggleVisibleAddLink(!this.props.visibleAddLink);
+    if(event.currentTarget.id === "search") {
+      this.props.toggleVisibleSearch(true);
+      this.props.toggleVisibleAddLink(false);
+      this.props.toggleVisibleBookmarksUpload(false);
+    } else if(event.currentTarget.id === "addLink") {
+      this.props.toggleVisibleSearch(false);
+      this.props.toggleVisibleAddLink(true);
       this.props.toggleVisibleBookmarksUpload(false);
     } else if(event.currentTarget.id === "bookmarksUpload") {
+      this.props.toggleVisibleSearch(false);
       this.props.toggleVisibleAddLink(false);
-      this.props.toggleVisibleBookmarksUpload(!this.props.visibleBookmarksUpload);
+      this.props.toggleVisibleBookmarksUpload(true);
     }
   };
 
@@ -65,6 +71,7 @@ export default class Toolbar extends Component {
           onRequestClose={this.handleRequestCloseMenuitem}
         >
           <Menu>
+            <MenuItem id="search" primaryText="Search" onTouchTap={this.handleTouchTapOptions} />
             <MenuItem id="addLink" primaryText="Add Link" onTouchTap={this.handleTouchTapOptions} />
             <MenuItem id="bookmarksUpload" primaryText="Bookmarks Upload" onTouchTap={this.handleTouchTapOptions} />
           </Menu>
@@ -75,8 +82,10 @@ export default class Toolbar extends Component {
 }
 
 Toolbar.propTypes = {
-  toggleVisibleAddLink: React.PropTypes.func,
-  toggleVisibleBookmarksUpload: React.PropTypes.func,
   visibleAddLink: React.PropTypes.bool,
   visibleBookmarksUpload: React.PropTypes.bool,
+  visibleSearch: React.PropTypes.bool,
+  toggleVisibleAddLink: React.PropTypes.func,
+  toggleVisibleBookmarksUpload: React.PropTypes.func,
+  toggleVisibleSearch: React.PropTypes.func,
 };

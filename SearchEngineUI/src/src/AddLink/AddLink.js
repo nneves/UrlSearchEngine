@@ -23,13 +23,12 @@ export default class AddLink extends Component {
     }
 
     handleClick(event) {
-      this.props.saveSubmit(this.state.value);
+      this.props.submit(this.state.value);
     }
 
     render() {
-      let visibleClassName = this.props.visibleAddLink ? 'show' : 'hide';
       return (
-        <div className={visibleClassName}>
+        <div className={this.props.visible ? 'show' : 'hide'}>
           <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
             <div className="px4 flex mx2 mt1 mb0">
               <TextField
@@ -50,6 +49,6 @@ export default class AddLink extends Component {
 }
 
 AddLink.propTypes = {
-  saveSubmit: React.PropTypes.func,
-  visibleAddLink: React.PropTypes.bool
+  visible: React.PropTypes.bool,
+  submit: React.PropTypes.func,
 };

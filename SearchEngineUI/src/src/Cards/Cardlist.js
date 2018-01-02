@@ -45,16 +45,18 @@ export default class Cardlist extends Component {
 
   render() {
     return (
-      <div className="mx4 mt2">
-        <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
-          Search Results {this.getCountOfItems()}
-        </div>
-        <div className="flex">
-          <section className="container py2">
-            <div className="clearfix mxn2">
-              { this.getListOfItems() }
-            </div>
-          </section>
+      <div className={this.props.visible ? 'show' : 'hide'}>
+        <div className="mx4 mt2">
+          <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
+            Search Results {this.getCountOfItems()}
+          </div>
+          <div className="flex">
+            <section className="container py2">
+              <div className="clearfix mxn2">
+                { this.getListOfItems() }
+              </div>
+            </section>
+          </div>
         </div>
       </div>
     );
@@ -62,6 +64,7 @@ export default class Cardlist extends Component {
 }
 
 Cardlist.propTypes = {
+  visible: React.PropTypes.bool,
   searchdata: React.PropTypes.object,
   removeSubmit: React.PropTypes.func
 };

@@ -38,6 +38,8 @@ export default class App extends Component {
         "rows": []
       },
       visibleAddLink: false,
+      visibleBookmarksUpload: false,
+      visibleSearch: true,
       idleStatus: true
     };
   }
@@ -45,6 +47,10 @@ export default class App extends Component {
   handleMessage = (msg) => {
     this.messages.showMessage(msg);
   }
+
+  handleToggleVisibleSearch = (visible) => {
+    this.setState({visibleSearch: visible});
+  };
 
   handleToggleVisibleAddLink = (visible) => {
     this.setState({visibleAddLink: visible});
@@ -145,10 +151,12 @@ export default class App extends Component {
       <MuiThemeProvider>
       <div>
         <Toolbar
+          visibleSearch={this.state.visibleSearch}
           visibleAddLink={this.state.visibleAddLink}
-          toggleVisibleAddLink={this.handleToggleVisibleAddLink}
           visibleBookmarksUpload={this.state.visibleBookmarksUpload}
+          toggleVisibleAddLink={this.handleToggleVisibleAddLink}
           toggleVisibleBookmarksUpload={this.handleToggleVisibleBookmarksUpload}
+          toggleVisibleSearch={this.handleToggleVisibleSearch}
         />
 
         <Messages
@@ -156,16 +164,17 @@ export default class App extends Component {
         />
 
         <AddLink
-          visibleAddLink={this.state.visibleAddLink}
-          saveSubmit={this.handleSaveSubmit}
+          visible={this.state.visibleAddLink}
+          submit={this.handleSaveSubmit}
         />
 
         <UploadBookmark
-          visibleBookmarksUpload={this.state.visibleBookmarksUpload}
+          visible={this.state.visibleBookmarksUpload}
         />
 
         <Search
-          searchSubmit={this.handleSearchSubmit}
+          visible={this.state.visibleSearch}
+          submit={this.handleSearchSubmit}
         />
 
         <div className="mt2 mb0 center" style={styleCircularProgress}>
@@ -177,6 +186,7 @@ export default class App extends Component {
         </div>
 
         <Cardlist
+          visible={this.state.visibleSearch}
           searchdata={this.state.searchdata}
           removeSubmit={this.handleRemoveSubmit}
         />
