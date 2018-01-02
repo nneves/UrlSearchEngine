@@ -7,7 +7,7 @@ const style = {
   width: 200,
 };
 
-export default class SavePanel extends Component {
+export default class AddLink extends Component {
     constructor(props) {
       super(props);
       this.state = {
@@ -49,7 +49,7 @@ export default class SavePanel extends Component {
     }
 }
 
-SavePanel.propTypes = {
+AddLink.propTypes = {
   saveSubmit: React.PropTypes.func,
   visibleSaveURL: React.PropTypes.bool
 };

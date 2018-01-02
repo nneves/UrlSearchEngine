@@ -6,8 +6,8 @@ import ApiUtils from './ApiUtils.js';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
-import SearchPanel from './Search/Search.js';
-import SavePanel from './Save/Save.js';
+import Search from './Search/Search.js';
+import AddLink from './AddLink/AddLink.js';
 import Cardlist from './Cards/Cardlist.js';
 import Messages from './Messages/Messages.js';
 import Toolbar from './Toolbar/Toolbar.js';
@@ -155,7 +155,7 @@ export default class App extends Component {
           ref={(messages) => { this.messages = messages; }}
         />
 
-        <SavePanel
+        <AddLink
           visibleSaveURL={this.state.visibleSaveURL}
           saveSubmit={this.handleSaveSubmit}
         />
@@ -164,7 +164,7 @@ export default class App extends Component {
           visibleBookmarksUpload={this.state.visibleBookmarksUpload}
         />
 
-        <SearchPanel
+        <Search
           searchSubmit={this.handleSearchSubmit}
         />
 
