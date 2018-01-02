@@ -16,8 +16,8 @@ services:
           - databaseinit
 
   ui:
-    build: ./SearchEngineUI
-    image: searchengine-ui:0.0.12
+    build: ./UI
+    image: searchengine-ui:0.0.13
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"
