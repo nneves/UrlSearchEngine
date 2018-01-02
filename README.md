@@ -66,8 +66,8 @@ docker-compose build --no-cache
 
 TODO:
 
-- [x] Finish SeachEngineUI
-- [x] Bundle SearchEngineUI into an Hapi.js webapp
+- [x] Finish UI
+- [x] Bundle UI into an Hapi.js webapp
 - [x] Add Logic to the previous webapp (insert URL content/image into CouchDB document, search content)
 - [ ] Add agent plugin for Email (Read email account to insert links content into CouchDB)
 - [ ] Add agent plugin for Slack/Telegraf (Use NodeRed telegram/slack integration to insert links content into CouchDB)
@@ -98,7 +98,7 @@ React webapp UI.
 For a quick service test run this commands:
 
 ```
-cd SearchEngineUI
+cd UI
 
 ./docker_build.sh
 ./docker_run.sh
@@ -193,7 +193,7 @@ cd SendFavoritesToCouchDB
 ./SendFavoritesToCouchDB ./bookmarks_sample.html
 ```
 
-SearchEngineUI
+UI
 -----------------------
 An experimental UI using Vue.js, basic webpack-dev-server http server, no backend yet implemented, neither docker container available!
 
@@ -202,7 +202,7 @@ An experimental UI using Vue.js, basic webpack-dev-server http server, no backen
 For a quick service test run this commands:
 
 ```
-cd SearchEngineUI
+cd UI
 
 npm install
 npm start
