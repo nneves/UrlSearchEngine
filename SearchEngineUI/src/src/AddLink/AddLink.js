@@ -27,7 +27,7 @@ export default class AddLink extends Component {
     }
 
     render() {
-      let visibleClassName = this.props.visibleSaveURL ? 'show' : 'hide';
+      let visibleClassName = this.props.visibleAddLink ? 'show' : 'hide';
       return (
         <div className={visibleClassName}>
           <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
@@ -35,7 +35,7 @@ export default class AddLink extends Component {
               <TextField
                 value={this.state.value}
                 hintText="https://github.com/nneves/UrlSearchEngine"
-                floatingLabelText="Add URL"
+                floatingLabelText="Add Link"
                 fullWidth={true}
                 onChange={this.handleChange}
               />
@@ -51,5 +51,5 @@ export default class AddLink extends Component {
 
 AddLink.propTypes = {
   saveSubmit: React.PropTypes.func,
-  visibleSaveURL: React.PropTypes.bool
+  visibleAddLink: React.PropTypes.bool
 };

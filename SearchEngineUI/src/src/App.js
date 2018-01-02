@@ -37,7 +37,7 @@ export default class App extends Component {
         "total_rows": 0,
         "rows": []
       },
-      visibleSaveURL: false,
+      visibleAddLink: false,
       idleStatus: true
     };
   }
@@ -46,8 +46,8 @@ export default class App extends Component {
     this.messages.showMessage(msg);
   }
 
-  handleToggleVisibleSaveURL = (visible) => {
-    this.setState({visibleSaveURL: visible});
+  handleToggleVisibleAddLink = (visible) => {
+    this.setState({visibleAddLink: visible});
   };
 
   handleToggleVisibleBookmarksUpload = (visible) => {
@@ -145,8 +145,8 @@ export default class App extends Component {
       <MuiThemeProvider>
       <div>
         <Toolbar
-          visibleSaveURL={this.state.visibleSaveURL}
-          toggleVisibleSaveURL={this.handleToggleVisibleSaveURL}
+          visibleAddLink={this.state.visibleAddLink}
+          toggleVisibleAddLink={this.handleToggleVisibleAddLink}
           visibleBookmarksUpload={this.state.visibleBookmarksUpload}
           toggleVisibleBookmarksUpload={this.handleToggleVisibleBookmarksUpload}
         />
@@ -156,7 +156,7 @@ export default class App extends Component {
         />
 
         <AddLink
-          visibleSaveURL={this.state.visibleSaveURL}
+          visibleAddLink={this.state.visibleAddLink}
           saveSubmit={this.handleSaveSubmit}
         />
 
