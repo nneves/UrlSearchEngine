@@ -15,6 +15,7 @@
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-fine-uploader": "^1.0.8",
+    "react-markdown": "^3.1.4",
     "react-tap-event-plugin": "^2.0.1"
   },
   "scripts": {
