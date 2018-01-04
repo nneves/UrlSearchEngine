@@ -71,8 +71,8 @@ export default class Toolbar extends Component {
           onRequestClose={this.handleRequestCloseMenuitem}
         >
           <Menu>
-            <MenuItem id="search" primaryText="Search" onTouchTap={this.handleTouchTapOptions} />
             <MenuItem id="addLink" primaryText="Add Link" onTouchTap={this.handleTouchTapOptions} />
+            <MenuItem id="search" primaryText="Search" onTouchTap={this.handleTouchTapOptions} />
             <MenuItem id="bookmarksUpload" primaryText="Bookmarks Upload" onTouchTap={this.handleTouchTapOptions} />
           </Menu>
         </Popover>

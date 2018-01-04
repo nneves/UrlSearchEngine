@@ -3,7 +3,7 @@ version: '2'
 services:
   ui:
     volumes:
-      - "$PWD/SearchEngineUI/src:/src"
+      - "$PWD/UI/src:/src"
     # ports:
     #   - "8080:8080"
 
