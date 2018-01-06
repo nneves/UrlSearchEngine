@@ -23,5 +23,7 @@
     "build": "PORT=8080 react-scripts build",
     "test": "PORT=8080 react-scripts test --env=jsdom",
     "eject": "PORT=8080 react-scripts eject"
-  }
+  },
+  "proxy": "http://dbproxy:8000",
+  "proxy-locahost": "http://localhost:8000"
 }

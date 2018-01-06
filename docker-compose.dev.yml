@@ -15,9 +15,9 @@ services:
     ports:
       - "6000:6000"
 
-  # dbproxy:
-  #   ports:
-  #     - "8000:8000"
+  dbproxy:
+    ports:
+      - "8000:8000"
 
   couchdb:
     ports:

@@ -16,7 +16,7 @@ function contentDocumentFactory(url, content, title, image) {
         title: title,
         url: url,
         image: image,
-        _id: toid(url + "/" + title) + "/" + ts
+        _id: toid(url + "_" + title) + "_" + ts
     };
 
     return o;

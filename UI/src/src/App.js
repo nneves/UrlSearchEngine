@@ -16,17 +16,12 @@ import UploadBookmark from './Bookmarks/UploadBookmark.js';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
-//import RaisedButton from 'material-ui/RaisedButton';
-
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const DBPROXY_HOST = process.env.DBPROXY_HOST || 'localhost';
-const DBPROXY_PORT = process.env.DBPROXY_PORT || 8000;
-const COUCHDB_HOST = process.env.COUCHDB_HOST || "localhost";
-const COUCHDB_PORT = process.env.COUCHDB_PORT || 5984;
-const COUCHDB_DATABASE = process.env.COUCHDB_DATABASE || "searchengine";
+// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables
+const COUCHDB_DATABASE = process.env.REACT_APP_COUCHDB_DATABASE || "searchengine";
 
 const styleCircularProgress = {
   height: 24
@@ -66,9 +61,8 @@ export default class App extends Component {
   };
 
   saveSubmit = (urladdress) => {
-    let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/url`;
-    let payload = `url=${urladdress}`;
-    //let setState = this.setState.bind(this);
+    const apiUrl = `/url`;
+    const payload = `url=${urladdress}`;
 
     this.setState({idleStatus: false, addLinkDocument: {}});
 
@@ -90,9 +84,9 @@ export default class App extends Component {
       return response.data;
     })
     .then(data => {
-      let couchUrl = `http://${COUCHDB_HOST}:${COUCHDB_PORT}/${COUCHDB_DATABASE}`;
-      let documentID = encodeURIComponent(data.id);
-      let requestURL = `${couchUrl}/${documentID}`;
+      const couchUrl = `/couchdb/${COUCHDB_DATABASE}`;
+      const documentID = encodeURIComponent(data.id);
+      const requestURL = `${couchUrl}/${documentID}`;
       fetch(`${requestURL}`, {
         method: 'GET',
         headers: {
@@ -114,7 +108,7 @@ export default class App extends Component {
   };
 
   removeSubmit = (docid) => {
-    let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/remove/${encodeURIComponent(docid)}`;
+    const apiUrl = `/remove/${encodeURIComponent(docid)}`;
 
     this.setState({idleStatus: false});
 
@@ -141,8 +135,8 @@ export default class App extends Component {
   };
 
   searchSubmit = (serchwords) => {
-    let querystring = serchwords.split(' ').join('+');
-    let apiUrl = `http://${DBPROXY_HOST}:${DBPROXY_PORT}/search/${querystring}`;
+    const querystring = serchwords.split(' ').join('+');
+    const apiUrl = `/search/${querystring}`;
     this.setState({idleStatus: false});
 
     fetch(`${apiUrl}`, {

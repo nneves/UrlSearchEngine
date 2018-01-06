@@ -14,15 +14,15 @@ export default class AddLink extends Component {
         value: '',
       };
 
-      this.handleChange = this.handleChange.bind(this);
-      this.handleClick = this.handleClick.bind(this);
+      //this.handleChange = this.handleChange.bind(this);
+      //this.handleClick = this.handleClick.bind(this);
     }
 
-    handleChange(event) {
+    handleChange = (event) => {
       this.setState({value: event.target.value});
     }
 
-    handleClick(event) {
+    handleClick = (event) => {
       this.props.submit(this.state.value);
     }
 

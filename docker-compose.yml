@@ -17,11 +17,11 @@ services:
 
   ui:
     build: ./UI
-    image: searchengine-ui:0.0.14
+    image: searchengine-ui:0.0.23
     restart: always
     environment:
-      COUCHDB_HOST: "couchdb"
       DBPROXY_HOST: "dbproxy"
+      DBPROXY_PORT: 8000
     ports:
       - "8080:8080"
     depends_on: 
@@ -56,14 +56,13 @@ services:
 
   dbproxy:
     build: ./DBProxy
-    image: searchengine-dbproxy:0.0.4
+    image: searchengine-dbproxy:0.0.5
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"
+      COUCHDB_PORT: 5984
       IMAGE_HOST: "getimagefromurl"
       CONTENT_HOST: "getcontentfromurl"
-    ports:
-      - "8000:8000"
     depends_on: 
       - couchdb
       - couchdb-lucene

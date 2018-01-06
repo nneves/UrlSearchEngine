@@ -5,13 +5,10 @@ import Gallery from 'react-fine-uploader'
 
 import 'react-fine-uploader/gallery/gallery.css'
 
-const DBPROXY_HOST = process.env.DBPROXY_HOST || 'localhost';
-const DBPROXY_PORT = process.env.DBPROXY_PORT || 8000;
-
 const uploader = new FineUploaderTraditional({
     options: {
         autoUpload: true,
-        debug: true,
+        debug: false,
         chunking: {
             enabled: true,
             concurrent: {
@@ -19,7 +16,7 @@ const uploader = new FineUploaderTraditional({
             },
             partSize: 200000, //200KB per chunk
             success: {
-                endpoint: `http://${DBPROXY_HOST}:${DBPROXY_PORT}/bookmarkchunkscompleted`
+                endpoint: `/bookmarkchunkscompleted`
             }
         },
         deleteFile: {
@@ -29,7 +26,7 @@ const uploader = new FineUploaderTraditional({
             enabled: true
         },
         request: {
-            endpoint: `http://${DBPROXY_HOST}:${DBPROXY_PORT}/bookmarkchunks`,
+            endpoint: `/bookmarkchunks`,
             forceMultipart: true
         },
         retry: {
@@ -41,19 +38,19 @@ const uploader = new FineUploaderTraditional({
         },
         callbacks: {
             onComplete: (id, name, response) => {
-                console.log(id, name, response);
+                // console.log(id, name, response);
             },
             onStatusChange: (id, oldStatus, newStatus) => {
-                console.log(id, oldStatus, newStatus);
+                // console.log(id, oldStatus, newStatus);
             },
             onUploadChunkSuccess: (id, chunkData, responseJSON, xhr) => {
-                console.log(id, chunkData, responseJSON);
+                // console.log(id, chunkData, responseJSON);
             },
             onError: (id, name, errorReason, xhr) => {
-                console.log(id, name, errorReason);
+                // console.log(id, name, errorReason);
             },
             onValidate: (name, buttonContainer) => {
-                console.log(name, buttonContainer);
+                // console.log(name, buttonContainer);
             }
         }
     }
