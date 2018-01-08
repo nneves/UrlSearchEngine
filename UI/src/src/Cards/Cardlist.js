@@ -17,10 +17,10 @@ export default class Cardlist extends Component {
   };
 
   getListOfItems() {
-    if (this.props.searchdata.total_rows === 0) {
+    if (this.props.searchData.total_rows === 0) {
       return (<div />);
     }
-    return this.props.searchdata.rows.map((item) => {
+    return this.props.searchData.rows.map((item) => {
         return (
           <Carditem
             removeSubmit={this.props.removeSubmit}
@@ -36,8 +36,8 @@ export default class Cardlist extends Component {
   };
 
   getCountOfItems() {
-    if (this.props.searchdata.total_rows > 0) {
-      let counter = `[${this.props.searchdata.total_rows}]`;
+    if (this.props.searchData.total_rows > 0) {
+      let counter = `[${this.props.searchData.total_rows}]`;
       return counter;
     }
     return "";
@@ -65,6 +65,6 @@ export default class Cardlist extends Component {
 
 Cardlist.propTypes = {
   visible: React.PropTypes.bool,
-  searchdata: React.PropTypes.object,
+  searchData: React.PropTypes.object,
   removeSubmit: React.PropTypes.func
 };

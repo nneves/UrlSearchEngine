@@ -28,15 +28,23 @@ export default class Toolbar extends Component {
     if(event.currentTarget.id === "search") {
       this.props.toggleVisibleSearch(true);
       this.props.toggleVisibleAddLink(false);
-      this.props.toggleVisibleBookmarksUpload(false);
+      this.props.toggleVisibleUploadBookmark(false);
+      this.props.toggleVisibleManageBookmark(false);
     } else if(event.currentTarget.id === "addLink") {
       this.props.toggleVisibleSearch(false);
       this.props.toggleVisibleAddLink(true);
-      this.props.toggleVisibleBookmarksUpload(false);
-    } else if(event.currentTarget.id === "bookmarksUpload") {
+      this.props.toggleVisibleManageBookmark(false);
+      this.props.toggleVisibleUploadBookmark(false);
+    } else if(event.currentTarget.id === "uploadBookmark") {
       this.props.toggleVisibleSearch(false);
       this.props.toggleVisibleAddLink(false);
-      this.props.toggleVisibleBookmarksUpload(true);
+      this.props.toggleVisibleUploadBookmark(true);
+      this.props.toggleVisibleManageBookmark(false);
+    } else if(event.currentTarget.id === "manageBookmark") {
+      this.props.toggleVisibleSearch(false);
+      this.props.toggleVisibleAddLink(false);
+      this.props.toggleVisibleUploadBookmark(false);
+      this.props.toggleVisibleManageBookmark(true);
     }
   };
 
@@ -73,7 +81,8 @@ export default class Toolbar extends Component {
           <Menu>
             <MenuItem id="addLink" primaryText="Add Link" onTouchTap={this.handleTouchTapOptions} />
             <MenuItem id="search" primaryText="Search" onTouchTap={this.handleTouchTapOptions} />
-            <MenuItem id="bookmarksUpload" primaryText="Bookmarks Upload" onTouchTap={this.handleTouchTapOptions} />
+            <MenuItem id="uploadBookmark" primaryText="Upload Bookmarks" onTouchTap={this.handleTouchTapOptions} />
+            <MenuItem id="manageBookmark" primaryText="Manage Bookmarks" onTouchTap={this.handleTouchTapOptions} />
           </Menu>
         </Popover>
       </div>
@@ -83,9 +92,11 @@ export default class Toolbar extends Component {
 
 Toolbar.propTypes = {
   visibleAddLink: React.PropTypes.bool,
-  visibleBookmarksUpload: React.PropTypes.bool,
+  visibleUploadBookmark: React.PropTypes.bool,
+  visibleManageBookmark: React.PropTypes.bool,
   visibleSearch: React.PropTypes.bool,
   toggleVisibleAddLink: React.PropTypes.func,
-  toggleVisibleBookmarksUpload: React.PropTypes.func,
+  toggleVisibleUploadBookmark: React.PropTypes.func,
+  toggleVisibleManageBookmark: React.PropTypes.func,
   toggleVisibleSearch: React.PropTypes.func,
 };

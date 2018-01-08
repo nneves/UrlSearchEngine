@@ -13,6 +13,7 @@ import Cardlist from './Cards/Cardlist.js';
 import Messages from './Messages/Messages.js';
 import Toolbar from './Toolbar/Toolbar.js';
 import UploadBookmark from './Bookmarks/UploadBookmark.js';
+import ManageBookmark from './Bookmarks/ManageBookmark.js';
 
 import CircularProgress from 'material-ui/CircularProgress';
 
@@ -21,7 +22,8 @@ import CircularProgress from 'material-ui/CircularProgress';
 injectTapEventPlugin();
 
 // https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables
-const COUCHDB_DATABASE = process.env.REACT_APP_COUCHDB_DATABASE || "searchengine";
+const COUCHDB_SEARCHENGINE = process.env.REACT_APP_COUCHDB_SEARCHENGINE || "searchengine";
+const COUCHDB_BOOKMARKENGINE = process.env.REACT_APP_COUCHDB_BOOKMARKENGINE || "bookmarkengine";
 
 const styleCircularProgress = {
   height: 24
@@ -32,12 +34,18 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchdata: {
+      searchData: {
         "total_rows": 0,
         "rows": []
       },
+      manageBookmarkData: {
+        total_rows: 0,
+        offset: 0,
+        rows: []
+      },
       visibleAddLink: false,
-      visibleBookmarksUpload: false,
+      visibleUploadBookmark: false,
+      visibleManageBookmark: false,
       visibleSearch: true,
       idleStatus: true,
       addLinkDocument: {}
@@ -56,8 +64,12 @@ export default class App extends Component {
     this.setState({visibleAddLink: visible});
   };
 
-  toggleVisibleBookmarksUpload = (visible) => {
-    this.setState({visibleBookmarksUpload: visible});
+  toggleVisibleUploadBookmark = (visible) => {
+    this.setState({visibleUploadBookmark: visible});
+  };
+
+  toggleVisibleManageBookmark = (visible) => {
+    this.setState({visibleManageBookmark: visible});
   };
 
   saveSubmit = (urladdress) => {
@@ -84,7 +96,7 @@ export default class App extends Component {
       return response.data;
     })
     .then(data => {
-      const couchUrl = `/couchdb/${COUCHDB_DATABASE}`;
+      const couchUrl = `/couchdb/${COUCHDB_SEARCHENGINE}`;
       const documentID = encodeURIComponent(data.id);
       const requestURL = `${couchUrl}/${documentID}`;
       fetch(`${requestURL}`, {
@@ -152,7 +164,7 @@ export default class App extends Component {
         throw new Error(response.message);
       }
       this.showMessage(`Success: ${serchwords}`);
-      this.setState({searchdata: response.data});
+      this.setState({searchData: response.data});
       this.setState({idleStatus: true});
     })
     .catch((err) => {
@@ -166,6 +178,33 @@ export default class App extends Component {
     this.setState({addLinkDocument: {}});
   };
 
+  loadManageBookmark = () => {
+    const couchUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/_all_docs`;
+    this.setState({idleStatus: false});
+
+    fetch(`${couchUrl}`, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+      }
+    })
+    .then((response) => response.json())
+    .then((response) => {
+      if (response.hasOwnProperty("total_rows") === false) {
+        throw new Error(response);
+      }
+      this.showMessage(`Success: Found ${response.total_rows} Bookmarks`);
+      console.log(response);
+      this.setState({manageBookmarkData: response});
+      this.setState({idleStatus: true});
+    })
+    .catch((err) => {
+      console.log(err);
+      this.showMessage(`Error: ${err.message}`);
+      this.setState({idleStatus: true});
+    });
+  };
+
   render() {
     return (
       <MuiThemeProvider>
@@ -173,9 +212,10 @@ export default class App extends Component {
         <Toolbar
           visibleSearch={this.state.visibleSearch}
           visibleAddLink={this.state.visibleAddLink}
-          visibleBookmarksUpload={this.state.visibleBookmarksUpload}
+          visibleUploadBookmark={this.state.visibleUploadBookmark}
           toggleVisibleAddLink={this.toggleVisibleAddLink}
-          toggleVisibleBookmarksUpload={this.toggleVisibleBookmarksUpload}
+          toggleVisibleUploadBookmark={this.toggleVisibleUploadBookmark}
+          toggleVisibleManageBookmark={this.toggleVisibleManageBookmark}
           toggleVisibleSearch={this.toggleVisibleSearch}
         />
 
@@ -195,7 +235,12 @@ export default class App extends Component {
         />
 
         <UploadBookmark
-          visible={this.state.visibleBookmarksUpload}
+          visible={this.state.visibleUploadBookmark}
+        />
+        <ManageBookmark
+          visible={this.state.visibleManageBookmark}
+          loadManageBookmark={this.loadManageBookmark}
+          manageBookmarkData={this.state.manageBookmarkData}
         />
 
         <Search
@@ -214,7 +259,7 @@ export default class App extends Component {
 
         <Cardlist
           visible={this.state.visibleSearch}
-          searchdata={this.state.searchdata}
+          searchData={this.state.searchData}
           removeSubmit={this.removeSubmit}
         />
       </div>
