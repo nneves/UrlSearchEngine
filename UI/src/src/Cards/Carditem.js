@@ -20,31 +20,22 @@ const cardtitleStyle = {
 
 export default class Carditem extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.trimContent = this.trimContent.bind(this);
-    this.getImageBase64 = this.getImageBase64.bind(this);
-    this.getUrl = this.getUrl.bind(this);
-    this.handleTouchTap = this.handleTouchTap.bind(this);
-  }
-
-  trimContent() {
+  trimContent = () => {
     return (this.props.content.substring(0,100)+"...");
   }
 
-  getImageBase64() {
+  getImageBase64 = () => {
     return (this.props.image);
   }
 
-  getUrl() {
+  getUrl = () => {
     var url = this.props.url;
     if (url.toLowerCase().indexOf("http") === -1)
       url = "http://" + url;
     return (url);
   }
 
-  handleTouchTap(event) {
+  handleTouchTap = (event) => {
     this.props.removeSubmit(this.props.id);
   }
 

@@ -29,11 +29,6 @@ const cardtitleStyle = {
 };
 
 export default class DocumentLink extends Component {
-    constructor(props) {
-      super(props);
-      this.state = {
-      };
-    }
 
     getUrl = () => {
         if (!this.props.data.hasOwnProperty("url")) {

@@ -14,16 +14,13 @@ export default class SearchPanel extends Component {
     this.state = {
       value: ''
     };
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
   }
 
-  handleChange(event) {
+  handleChange = (event) => {
     this.setState({value: event.target.value});
   }
 
-  handleClick(event) {
+  handleClick = (event) => {
     this.props.submit(this.state.value);
   }
 

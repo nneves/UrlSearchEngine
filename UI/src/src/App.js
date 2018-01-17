@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 //import PropTypes from 'prop-types';
 
 import ApiUtils from './ApiUtils.js';
+import { COUCHDB_SEARCHENGINE, COUCHDB_BOOKMARKENGINE } from './envvars.js';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -21,10 +22,6 @@ import CircularProgress from 'material-ui/CircularProgress';
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-// https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md#adding-custom-environment-variables
-const COUCHDB_SEARCHENGINE = process.env.REACT_APP_COUCHDB_SEARCHENGINE || "searchengine";
-const COUCHDB_BOOKMARKENGINE = process.env.REACT_APP_COUCHDB_BOOKMARKENGINE || "bookmarkengine";
-
 const styleCircularProgress = {
   height: 24
 };
@@ -43,6 +40,7 @@ export default class App extends Component {
         offset: 0,
         rows: []
       },
+      manageBookmarkTableData: [],
       visibleAddLink: false,
       visibleUploadBookmark: false,
       visibleManageBookmark: false,
@@ -193,8 +191,7 @@ export default class App extends Component {
       if (response.hasOwnProperty("total_rows") === false) {
         throw new Error(response);
       }
-      this.showMessage(`Success: Found ${response.total_rows} Bookmarks`);
-      console.log(response);
+      //this.showMessage(`Success: Found ${response.total_rows} Bookmarks`);
       this.setState({manageBookmarkData: response});
       this.setState({idleStatus: true});
     })
@@ -236,6 +233,7 @@ export default class App extends Component {
 
         <UploadBookmark
           visible={this.state.visibleUploadBookmark}
+          loadManageBookmark={this.loadManageBookmark}
         />
         <ManageBookmark
           visible={this.state.visibleManageBookmark}

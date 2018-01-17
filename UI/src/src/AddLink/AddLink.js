@@ -13,9 +13,6 @@ export default class AddLink extends Component {
       this.state = {
         value: '',
       };
-
-      //this.handleChange = this.handleChange.bind(this);
-      //this.handleClick = this.handleClick.bind(this);
     }
 
     handleChange = (event) => {

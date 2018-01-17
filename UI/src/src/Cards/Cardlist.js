@@ -9,14 +9,7 @@ const styleSearchResults = {
 
 export default class Cardlist extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.getListOfItems = this.getListOfItems.bind(this);
-    this.getCountOfItems = this.getCountOfItems.bind(this);
-  };
-
-  getListOfItems() {
+  getListOfItems = () => {
     if (this.props.searchData.total_rows === 0) {
       return (<div />);
     }
@@ -35,7 +28,7 @@ export default class Cardlist extends Component {
     });
   };
 
-  getCountOfItems() {
+  getCountOfItems = () => {
     if (this.props.searchData.total_rows > 0) {
       let counter = `[${this.props.searchData.total_rows}]`;
       return counter;
