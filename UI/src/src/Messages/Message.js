@@ -1,8 +1,6 @@
-import React from 'react';
-import Snackbar from 'material-ui/Snackbar';
+import React, { Component } from 'react';
 
-export default class SnackbarExampleSimple extends React.Component {
-
+export default class Message extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,9 +10,9 @@ export default class SnackbarExampleSimple extends React.Component {
     };
   }
 
-  showMessage = (msg) => {
+  showMessage = (message) => {
     this.setState({
-      message: msg.substring(0,50),
+      message: message,
       open: true,
     });
   };
@@ -24,18 +22,6 @@ export default class SnackbarExampleSimple extends React.Component {
       autoHideDuration: time,
       message: msg,
       open: true,
-    });
-  };
-
-  handleTouchTap = () => {
-    this.setState({
-      open: true,
-    });
-  };
-
-  handleActionTouchTap = () => {
-    this.setState({
-      open: false,
     });
   };
 
@@ -53,9 +39,8 @@ export default class SnackbarExampleSimple extends React.Component {
     });
   };
 
-  render() {
-    return (
-      <Snackbar
+    /*
+        <Snackbar
         open={this.state.open}
         message={this.state.message}
         action="Close"
@@ -63,6 +48,21 @@ export default class SnackbarExampleSimple extends React.Component {
         onActionTouchTap={this.handleActionTouchTap}
         onRequestClose={this.handleRequestClose}
       />
+  */
+
+  render() {
+    return (
+      <div className={this.state.open ? "show" : "hide"}>
+        <div className="mt2 mb0 px2">
+          <div className="ui success message">
+            <i className="close icon" onClick={this.handleRequestClose}></i>
+            <div className="header">
+              {this.state.title}
+            </div>
+            <p>{this.state.message}</p>
+          </div>
+        </div>
+      </div>
     );
   }
 }

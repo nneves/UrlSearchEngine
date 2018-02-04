@@ -17,7 +17,7 @@ services:
 
   ui:
     build: ./UI
-    image: searchengine-ui:0.0.23
+    image: searchengine-ui:0.0.26
     restart: always
     environment:
       DBPROXY_HOST: "dbproxy"

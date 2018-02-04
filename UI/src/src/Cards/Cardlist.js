@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 
-import * as Colors from 'material-ui/styles/colors';
 import Carditem from './Carditem.js';
 
 const styleSearchResults = {
-  backgroundColor: Colors.cyan500,
+  backgroundColor: "gray",
 };
 
 export default class Cardlist extends Component {
@@ -23,7 +22,7 @@ export default class Cardlist extends Component {
             content={item.doc.content}
             url={item.doc.url}
             image={item.doc.image}
-          />
+          />    
         );
     });
   };
@@ -39,7 +38,7 @@ export default class Cardlist extends Component {
   render() {
     return (
       <div className={this.props.visible ? 'show' : 'hide'}>
-        <div className="mx4 mt2">
+        <div className="mx2 mt2">
           <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
             Search Results {this.getCountOfItems()}
           </div>

@@ -5,29 +5,22 @@ import ApiUtils from './ApiUtils.js';
 import { COUCHDB_SEARCHENGINE, COUCHDB_BOOKMARKENGINE } from './envvars.js';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 
 import Search from './Search/Search.js';
 import AddLink from './AddLink/AddLink.js';
 import DocumentLink from './AddLink/DocumentLink.js';
 import Cardlist from './Cards/Cardlist.js';
-import Messages from './Messages/Messages.js';
+import Message from './Messages/Message.js';
+import Spinner from './Messages/Spinner.js';
 import Toolbar from './Toolbar/Toolbar.js';
 import UploadBookmark from './Bookmarks/UploadBookmark.js';
 import ManageBookmark from './Bookmarks/ManageBookmark.js';
-
-import CircularProgress from 'material-ui/CircularProgress';
 
 // Needed for onTouchTap
 // http://stackoverflow.com/a/34015469/988941
 injectTapEventPlugin();
 
-const styleCircularProgress = {
-  height: 24
-};
-
 export default class App extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
@@ -51,7 +44,7 @@ export default class App extends Component {
   }
 
   showMessage = (msg) => {
-    this.messages.showMessage(msg);
+    this.message.showMessage(msg);
   }
 
   toggleVisibleSearch = (visible) => {
@@ -204,8 +197,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <MuiThemeProvider>
-      <div>
+      <div id="app">
         <Toolbar
           visibleSearch={this.state.visibleSearch}
           visibleAddLink={this.state.visibleAddLink}
@@ -214,10 +206,6 @@ export default class App extends Component {
           toggleVisibleUploadBookmark={this.toggleVisibleUploadBookmark}
           toggleVisibleManageBookmark={this.toggleVisibleManageBookmark}
           toggleVisibleSearch={this.toggleVisibleSearch}
-        />
-
-        <Messages
-          ref={(messages) => { this.messages = messages; }}
         />
 
         <AddLink
@@ -246,22 +234,20 @@ export default class App extends Component {
           submit={this.searchSubmit}
         />
 
-        <div className="mt2 mb0 center" style={styleCircularProgress}>
-          <CircularProgress
-            className={this.state.idleStatus ? "hide" : "show"}
-            color="#E91E63"
-            size={35}
-            thickness={3.5}
-          />
-        </div>
+        <Spinner
+          visible={!this.state.idleStatus}
+        />
 
         <Cardlist
           visible={this.state.visibleSearch}
           searchData={this.state.searchData}
           removeSubmit={this.removeSubmit}
         />
+
+        <Message
+          ref={(message) => { this.message = message; }}
+        />
       </div>
-      </MuiThemeProvider>
     );
   }
 }

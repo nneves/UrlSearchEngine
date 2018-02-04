@@ -2,30 +2,12 @@ import React, { Component } from 'react';
 
 import ReactMarkdown from 'react-markdown';
 
-import * as Colors from 'material-ui/styles/colors';
-import {Card, CardActions, CardHeader} from 'material-ui/Card';
-import RaisedButton from 'material-ui/FlatButton';
-import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
-
-const style = {
-    height: "100%",
-    width: "100%",
-    display: "inline-block",
+const cardTitleStyle = {
+    backgroundColor: "grey"
 };
 
-const stylePaper = {
-    height: "100%",
-    width: "100%",
-    margin: 10,
-    textAlign: "left",
-    display: "inline-block",
-    marginLeft: "-1px",
-};
-
-const cardtitleStyle = {
-    backgroundColor: Colors.blueGrey500,
-    height: 50,
+const cardStyle = {
+    width: "100%"
 };
 
 export default class DocumentLink extends Component {
@@ -51,39 +33,31 @@ export default class DocumentLink extends Component {
       return (
         <div className={this.props.visible ? 'show' : 'hide'}>
             <div className={this.props.data.hasOwnProperty("_id") ? 'show' : 'hide'}>
-                <div className="px4 mx2 mt3 mb0">
-                    <Card>
-                        <CardHeader
-                            title={this.props.data.title}
-                            className="bold"
-                            subtitle={this.props.title}
-                            style={cardtitleStyle}
-                        />
-                        <div className="center">
+                <div className="mx2 mt2 mb0">
+                    <div className="ui card" style={cardStyle}>
+                        <div className="content" style={cardTitleStyle}>
+                            <div className="description">
+                                {this.props.data.title}
+                            </div>
+                        </div>
+                        <div className="extra content">
+                            <a href={this.getUrl()} target="_blank">
+                                <button className="ui primary button">
+                                    Open
+                                </button>
+                            </a>
+                            <button className="ui negative button" onClick={this.removeDocumentID}>
+                                Remove
+                            </button>
+                        </div>
+                        <div className="image">
                             <img src={this.props.data.image} alt="" />
                         </div>
-                        <Divider />
-                        <CardActions>
-                          <RaisedButton
-                            label="Open"
-                            primary={true}
-                            style={style}
-                            href={this.getUrl()}
-                            target="_blank"
-                          />
-                          <RaisedButton
-                            label="Remove"
-                            secondary={true}
-                            style={style}
-                            onTouchTap={this.removeDocumentID}
-                          />
-                        </CardActions>
-                    </Card>
-                </div>
-                <div className="px4 mx2 mt2 mb0">
-                    <Paper className="px2" style={stylePaper} zDepth={2} rounded={false}>
-                        <ReactMarkdown source={this.props.data.content} />
-                    </Paper>
+                        <div className="ui divider"></div>
+                        <div className="mx2">
+                            <ReactMarkdown source={this.props.data.content} />
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

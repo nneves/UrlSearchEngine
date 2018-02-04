@@ -2,32 +2,10 @@ import React, { Component } from 'react';
 
 import { COUCHDB_BOOKMARKENGINE } from './../envvars.js';
 
-import RaisedButton from 'material-ui/RaisedButton';
-import {Toolbar, ToolbarGroup, ToolbarTitle} from 'material-ui/Toolbar';
-import {
-    Table,
-    TableBody,
-    TableHeader,
-    TableHeaderColumn,
-    TableRow,
-    TableRowColumn,
-  } from 'material-ui/Table';
-
-import Paper from 'material-ui/Paper';
-
-const stylePaper = {
-    height: "100%",
-    width: "100%",
-    margin: 0,
-    textAlign: "left",
-    display: "inline-block",
-    marginLeft: "-1px",
-};
-
-const styleBtn = {
-    height: "100%",
-    width: "100%",
-    display: "inline-block",
+const tableStyle = {
+    height:"500px",
+    width:"100%",
+    overflowX:"scroll"
 };
 
 export default class ManageBookmarkTable extends Component {
@@ -74,17 +52,23 @@ export default class ManageBookmarkTable extends Component {
 
     renderTableEmpty = (key) => {
         return (
-            <div key={'renderTbl-'+key} className="px4 mx2 mt2 mb0">
-                <RaisedButton label={"Load Bookmark: "+key} style={styleBtn} onClick={this.loadManageBookmarkTable} />
+            <div key={'renderTbl-'+key}>
+                <button className="ui basic button" onClick={this.loadManageBookmarkTable}>
+                    {"Load Bookmark: "+key}
+                </button>
             </div>
         )
     }
 
+    closeBookmark = () => {
+        this.setState({data: []});
+    }
+
     renderTableRown = (key, idx, elem) => {
         return (
-            <TableRow key={'tbl-row-'+idx+'-'+key}>
-                <TableRowColumn key={'tbl-row-col1-'+idx+'-'+key}>{elem}</TableRowColumn>
-            </TableRow>
+            <tr key={'tbl-row-'+idx+'-'+key}>
+                <td key={'tbl-row-col1-'+idx+'-'+key}>{elem}</td>
+            </tr>
         );
     }
 
@@ -94,31 +78,29 @@ export default class ManageBookmarkTable extends Component {
         });
 
         return (
-            <div key={'renderTbl-'+key} className="px4 mx2 mt2 mb0">
-                <Paper key={'paper-'+key} style={stylePaper} zDepth={2} rounded={false}>
-                    <Toolbar>
-                        <ToolbarGroup>
-                        <ToolbarTitle text={key} />
-                        </ToolbarGroup>
-                    </Toolbar>                
-                    <Table key={'tbl-'+key} selectable={false} >
-                        <TableHeader key={'tbl-hdr-'+key} displaySelectAll={false} adjustForCheckbox={false}>
-                            <TableRow key={'tbl-hdr-row-'+key}>
-                                <TableHeaderColumn key={'tbl-hdr-row-col-'+key}>URL</TableHeaderColumn>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody key={'tbl-body-'+key} displayRowCheckbox={false}>
-                            { tableRown }
-                        </TableBody>
-                    </Table>
-                </Paper>
+            <div key={'renderTbl-'+key} style={tableStyle}>
+                <table className="ui striped padded compact table violet">
+                    <thead>
+                        <tr>
+                            <th>
+                                <button id={key} className="ui button" onClick={this.closeBookmark}>
+                                    Close
+                                </button>
+                                <span className="mx2">{key}</span>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        { tableRown }
+                    </tbody>
+                </table>
             </div>
         )
     }
 
     render() {
       return (
-        <div key={'manageBookmarkTableInner-'+this.props.tableKey} className="px4 mx2 mt3 mb0">
+        <div key={'manageBookmarkTableInner-'+this.props.tableKey} className="mt3 mb0">
             { this.renderTable() }
         </div>
       )

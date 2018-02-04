@@ -1,27 +1,17 @@
 import React, { Component } from 'react';
 
-import * as Colors from 'material-ui/styles/colors';
-import Divider from 'material-ui/Divider';
-import {Card, CardActions, CardMedia, CardTitle} from 'material-ui/Card';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const style = {
-  margin: 12,
-};
-
-const pixelV = {
-  height: 1,
-};
-
-const cardtitleStyle = {
-  backgroundColor: Colors.blueGrey500,
-  height: 75,
+const cardStyle = {
+  width: "400px"
 };
 
 export default class Carditem extends Component {
 
   trimContent = () => {
-    return (this.props.content.substring(0,100)+"...");
+    return (this.props.content.substring(0,145)+"...");
+  }
+
+  trimURL = () => {
+    return this.props.url.substring(0,50);
   }
 
   getImageBase64 = () => {
@@ -35,46 +25,45 @@ export default class Carditem extends Component {
     return (url);
   }
 
-  handleTouchTap = (event) => {
+  openURL = () => {
+    window.open(this.getUrl());
+  }
+
+  removeURL = (event) => {
     this.props.removeSubmit(this.props.id);
   }
 
   render() {
     return (
       <div className="mb3 px2 sm-col sm-col-3">
-        <Card>
-          <CardTitle className="bold" subtitle={this.props.title} style={cardtitleStyle} />
-          <div className="mt0">
-            <Divider />
-          </div>
-          <CardMedia>
-            <a href={this.getUrl()} target="_blank" className="block">
+        <div className="ui cards">
+          <div className="card" style={cardStyle}>
+            <div className="image">
               <img src={this.getImageBase64()} className="block" role="presentation" />
-            </a>
-          </CardMedia>
-          <div style={pixelV} />
-          <Divider />
-          <CardActions>
-            <RaisedButton
-              label="Open"
-              primary={true}
-              style={style}
-              href={this.getUrl()}
-              target="_blank"
-            />
-            <RaisedButton
-              label="Remove"
-              secondary={true}
-              style={style}
-              onTouchTap={this.handleTouchTap}
-            />
-          </CardActions>
-        </Card>
+            </div>
+            <div className="content">
+              <div className="header">
+                {this.props.title}
+              </div>
+              <div className="meta">
+                {this.trimURL()}
+              </div>
+              <div className="description">
+                {this.trimContent()}
+              </div>
+            </div>
+            <div className="extra content">
+              <div className="ui two buttons">
+                <div className="ui basic green button" onClick={this.openURL}>Open</div>
+                <div className="ui basic red button" onClick={this.removeURL}>Remove</div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }
 }
-
 Carditem.propTypes = {
   id: React.PropTypes.string,
   title: React.PropTypes.string,

@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const style = {
+const styleButton = {
   width: 200,
 };
 
@@ -28,22 +25,21 @@ export default class SearchPanel extends Component {
     return (
       <div className={this.props.visible ? 'show' : 'hide'}>
         <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
-          <div className="px4 flex mx2 mt1 mb0">
-            <TextField
-              value={this.state.value}
-              hintText="search words"
-              floatingLabelText="Search"
-              fullWidth={true}
-              onChange={this.handleChange}
-            />
+          <div className="px2 mt2 mb0">
+            <div className="ui pointing below label">
+              Search
+            </div>
+            <div className="ui left icon input transparent">
+              <input
+                type="text"
+                value={this.state.value}
+                onChange={this.handleChange}
+              />
+              <i className="search icon pl3"/>
+            </div>
           </div>
-          <div className="px4 flex mx2 mt0 mb0">
-            <RaisedButton
-              label="Search"
-              primary={false}
-              style={style}
-              onClick={this.handleClick}
-            />
+          <div className="px2 mt2 mb0">
+            <button className="ui button active" style={styleButton}>Search</button>
           </div>
         </form>
       </div>

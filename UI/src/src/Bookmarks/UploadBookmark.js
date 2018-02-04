@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 
-import FineUploaderTraditional from 'fine-uploader-wrappers'
-import Gallery from 'react-fine-uploader'
+import FineUploaderTraditional from 'fine-uploader-wrappers';
+import Gallery from 'react-fine-uploader';
 
-import 'react-fine-uploader/gallery/gallery.css'
+import 'react-fine-uploader/gallery/gallery.css';
 
 export default class UploadBookmark extends Component {
 

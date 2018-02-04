@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 
-import TextField from 'material-ui/TextField';
-import RaisedButton from 'material-ui/RaisedButton';
-
-const style = {
+const styleButton = {
   width: 200,
 };
 
@@ -27,17 +24,21 @@ export default class AddLink extends Component {
       return (
         <div className={this.props.visible ? 'show' : 'hide'}>
           <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
-            <div className="px4 flex mx2 mt1 mb0">
-              <TextField
-                value={this.state.value}
-                hintText="https://github.com/nneves/UrlSearchEngine"
-                floatingLabelText="Add Link"
-                fullWidth={true}
-                onChange={this.handleChange}
-              />
+            <div className="px2 mt2 mb0">
+              <div className="ui pointing below label">
+                Add URL
+              </div>
+              <div className="ui left icon input transparent">
+                <input
+                  type="text"
+                  placeholder="https://github.com/nneves/UrlSearchEngine"
+                  onChange={this.handleChange}
+                />
+                <i className="linkify icon pl3"/>
+              </div>
             </div>
-            <div className="px4 flex mx2 mt0 mb0">
-              <RaisedButton label="Save" primary={true} style={style} onClick={this.handleClick} />
+            <div className="px2 mt2 mb0">
+              <button className="ui button active" style={styleButton}>Save</button>
             </div>
           </form>
         </div>
