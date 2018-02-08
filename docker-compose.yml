@@ -17,11 +17,12 @@ services:
 
   ui:
     build: ./UI
-    image: searchengine-ui:0.0.26
+    image: searchengine-ui:0.0.27
     restart: always
     environment:
       DBPROXY_HOST: "dbproxy"
       DBPROXY_PORT: 8000
+      PROXY: "http://dbproxy:8000"
     ports:
       - "8080:8080"
     depends_on: 
