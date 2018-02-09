@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 
 const cardStyle = {
-  width: "400px"
+  width: "400px",
+  height: "500px"
+};
+
+const trimTextStyle = {
+  textOverflow: "ellipsis",
+  overflow: "hidden",
 };
 
 export default class Carditem extends Component {
@@ -48,7 +54,7 @@ export default class Carditem extends Component {
               <div className="meta">
                 {this.trimURL()}
               </div>
-              <div className="description">
+              <div className="description" style={trimTextStyle}>
                 {this.trimContent()}
               </div>
             </div>

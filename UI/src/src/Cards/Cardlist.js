@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import { Grid } from 'semantic-ui-react';
+
 import Carditem from './Carditem.js';
 
 const styleSearchResults = {
@@ -38,18 +40,18 @@ export default class Cardlist extends Component {
   render() {
     return (
       <div className={this.props.visible ? 'show' : 'hide'}>
-        <div className="mx2 mt2">
-          <div className="mb2 border center bold rounded-top white" style={styleSearchResults}>
-            Search Results {this.getCountOfItems()}
-          </div>
-          <div className="flex">
-            <section className="container py2">
-              <div className="clearfix mxn2">
-                { this.getListOfItems() }
-              </div>
-            </section>
-          </div>
+        <div className="mx2 mt2 mb2 border center bold rounded white" style={styleSearchResults}>
+          Search Results {this.getCountOfItems()}
         </div>
+        <Grid divided='vertically'>
+            <Grid.Row columns={1}>
+                <Grid.Column>
+                    <div className="center">
+                        { this.getListOfItems() }
+                    </div>
+                </Grid.Column>
+            </Grid.Row>
+        </Grid>
       </div>
     );
   }
