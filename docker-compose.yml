@@ -17,7 +17,7 @@ services:
 
   ui:
     build: ./UI
-    image: searchengine-ui:0.0.27
+    image: searchengine-ui:0.0.28
     restart: always
     environment:
       DBPROXY_HOST: "dbproxy"
@@ -57,7 +57,7 @@ services:
 
   dbproxy:
     build: ./DBProxy
-    image: searchengine-dbproxy:0.0.5
+    image: searchengine-dbproxy:0.0.6
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"

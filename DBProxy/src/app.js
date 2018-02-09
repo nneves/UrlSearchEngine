@@ -67,7 +67,7 @@ server.route([
     {
         method: 'DELETE',
         path: '/couchdb/{path*}',
-        config: couchdbProxy.config
+        config: couchdbProxy.configDELETE
     },
 ]);
 

@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 
 const cardStyle = {
-  width: "400px",
-  height: "500px"
+  width: "400px"
 };
 
 export default class Carditem extends Component {

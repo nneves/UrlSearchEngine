@@ -10,10 +10,10 @@ const tableStyle = {
 
 export default class ManageBookmarkTable extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-          data: []
-      };
+        super(props);
+        this.state = {
+            data: []
+        };
     }
 
     loadManageBookmarkTable = () => {
@@ -22,21 +22,54 @@ export default class ManageBookmarkTable extends Component {
         this.setState({idleStatus: false});
     
         fetch(`${couchUrl}`, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-          }
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
         })
         .then((response) => response.json())
         .then((response) => {
-          /*
-          if (response.hasOwnProperty("total_rows") === false) {
-            throw new Error(response);
-          }
-          */
-          //console.log(response.bookmarkList);
-          this.setState({data: response.bookmarkList});
-          this.setState({idleStatus: true});
+            this.setState({data: response.bookmarkList});
+            this.setState({idleStatus: true});
+        })
+        .catch((err) => {
+            console.log(err);
+            this.setState({idleStatus: true});
+        });
+    };
+
+    deleteManageBookmarkTable = () => {
+        const docKey = this.props.tableKey
+        const couchUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/${docKey}`;
+        this.setState({idleStatus: false});
+
+        fetch(`${couchUrl}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+            }
+        })
+        .then((response) => response.json())
+        .then((response) => response._rev)
+        .then((rev) => {
+            const couchDeleteUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/${docKey}?rev=${rev}`;
+            fetch(`${couchDeleteUrl}`, {
+                method: 'DELETE',
+                headers: {
+                    'Accept': 'application/json',
+                }
+            })
+            .then((response) => response.json())
+            .then((response) => {
+                if(response.ok) {
+                    this.props.reloadData();
+                }
+                this.setState({idleStatus: true});
+            })
+            .catch((err) => {
+                console.log(err);
+                this.setState({idleStatus: true});
+            });
         })
         .catch((err) => {
           console.log(err);
@@ -53,8 +86,11 @@ export default class ManageBookmarkTable extends Component {
     renderTableEmpty = (key) => {
         return (
             <div key={'renderTbl-'+key}>
-                <button className="ui basic button" onClick={this.loadManageBookmarkTable}>
+                <button className="ui basic blue button" onClick={this.loadManageBookmarkTable}>
                     {"Load Bookmark: "+key}
+                </button>
+                <button className="ui basic red button" onClick={this.deleteManageBookmarkTable}>
+                    {"Delete Bookmark: "+key}
                 </button>
             </div>
         )
@@ -79,7 +115,7 @@ export default class ManageBookmarkTable extends Component {
 
         return (
             <div key={'renderTbl-'+key} style={tableStyle}>
-                <table className="ui striped padded compact table violet">
+                <table className="ui striped padded compact table blue">
                     <thead>
                         <tr>
                             <th>
@@ -108,5 +144,6 @@ export default class ManageBookmarkTable extends Component {
 }
 
 ManageBookmarkTable.propTypes = {
-    tableKey: React.PropTypes.string
+    tableKey: React.PropTypes.string,
+    reloadData: React.PropTypes.func,
 };

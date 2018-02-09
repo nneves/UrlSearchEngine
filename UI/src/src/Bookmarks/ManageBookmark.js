@@ -4,15 +4,17 @@ import ManageBookmarkTable from './ManageBookmarkTable';
 
 export default class ManageBookmark extends Component {
     constructor(props) {
-      super(props);
-      this.state = {
-      };
-
+        super(props);
+        this.state = {};
     }
 
     componentDidMount(){
         this.props.loadManageBookmark();
-      }
+    }
+
+    reloadManageBookmark = () => {
+        this.props.loadManageBookmark();
+    };
 
     render() {
       return (
@@ -23,6 +25,7 @@ export default class ManageBookmark extends Component {
                         <ManageBookmarkTable
                             key={'manageBookmarkTable-'+data.key}
                             tableKey={data.key}
+                            reloadData={this.reloadManageBookmark}
                         />
                     );
                 })}
