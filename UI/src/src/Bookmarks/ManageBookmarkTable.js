@@ -8,11 +8,22 @@ const tableStyle = {
     overflowX:"scroll"
 };
 
+const optionEditButtonStyle = {
+    height:"30px",
+    width:"30px"
+};
+
+const optionRemoveButtonStyle = {
+    height:"30px",
+    width:"30px"
+};
+
 export default class ManageBookmarkTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: []
+            data: [],
+            removed: []
         };
     }
 
@@ -77,6 +88,22 @@ export default class ManageBookmarkTable extends Component {
         });
     };
 
+    removeBookmark = (e) => {
+        let currState = this.state.removed;
+        const index = currState.indexOf(e.target.id);
+        if (index === -1) {
+            currState.push(e.target.id);
+        } else {
+            currState.splice(index, 1);
+        }
+        this.setState({removed: currState});
+        console.log("remove Bookmark: ", e.target.id);
+    };
+
+    editBookmark = (e) => {
+        console.log("edit Bookmark: ", e.target.id);
+    };
+
     renderTable  = () => {
         const key = this.props.tableKey;
         const data = this.state.data;
@@ -103,7 +130,37 @@ export default class ManageBookmarkTable extends Component {
     renderTableRown = (key, idx, elem) => {
         return (
             <tr key={'tbl-row-'+idx+'-'+key}>
-                <td key={'tbl-row-col1-'+idx+'-'+key}>{elem}</td>
+                <td key={'tbl-row-col1-'+idx+'-'+key} className="center aligned">
+                    <div className="ui buttons">
+                    <button
+                        key={'removeBookmark-'+idx+'-'+key}
+                        id={idx+'_'+key}
+                        className="ui icon button"
+                        style={optionRemoveButtonStyle}
+                        onClick={this.removeBookmark}>
+                            <i id={idx+'_'+key} className="red close icon" ref={(node) => {
+                                if (node) {
+                                    node.style.setProperty("margin-left", "-4px", "important");
+                                    node.style.setProperty("margin-top", "-2px", "important");
+                                }
+                            }} />
+                    </button>
+                    <button
+                        key={'editBookmark-'+idx+'-'+key}
+                        id={idx+'_'+key}
+                        className="ui icon button"
+                        style={optionEditButtonStyle}
+                        onClick={this.editBookmark}>
+                            <i id={idx+'_'+key} className="blue pencil alternate icon" ref={(node) => {
+                                if (node) {
+                                    node.style.setProperty("margin-left", "-4px", "important");
+                                    node.style.setProperty("margin-top", "-2px", "important");
+                                }
+                            }} />
+                    </button>
+                    </div>
+                </td>
+                <td key={'tbl-row-col2-'+idx+'-'+key}>{elem}</td>
             </tr>
         );
     }
@@ -118,7 +175,7 @@ export default class ManageBookmarkTable extends Component {
                 <table className="ui striped padded compact table blue">
                     <thead>
                         <tr>
-                            <th>
+                            <th colSpan="2">
                                 <button id={key} className="ui button" onClick={this.closeBookmark}>
                                     Close
                                 </button>
@@ -146,4 +203,6 @@ export default class ManageBookmarkTable extends Component {
 ManageBookmarkTable.propTypes = {
     tableKey: React.PropTypes.string,
     reloadData: React.PropTypes.func,
+    removeBookmark: React.PropTypes.func,
+    editBookmark: React.PropTypes.func
 };
