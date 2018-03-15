@@ -17,14 +17,37 @@ services:
 
   ui:
     build: ./UI
-    image: searchengine-ui:0.0.28
+    image: searchengine-ui:0.0.32
+    #working_dir: /usr/src/app
     restart: always
     environment:
       DBPROXY_HOST: "dbproxy"
       DBPROXY_PORT: 8000
       PROXY: "http://dbproxy:8000"
+    volumes:
+      - "$PWD/UI/uicode:/usr/src/app"
     ports:
       - "8080:8080"
+    depends_on: 
+      - couchdb
+      - dbproxy
+    networks:
+      senetwork:
+        aliases:
+          - ui
+
+  uiproduction:
+    image: nginx:latest
+    restart: always
+    environment:
+      DBPROXY_HOST: "dbproxy"
+      DBPROXY_PORT: 8000
+      PROXY: "http://dbproxy:8000"
+    volumes:
+      - "$PWD/UI/uicode/build/:/usr/share/nginx/html:ro"
+      - "$PWD/UI/uiconf/default.conf:/etc/nginx/conf.d/default.conf:ro"
+    ports:
+      - "80:80"
     depends_on: 
       - couchdb
       - dbproxy

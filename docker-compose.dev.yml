@@ -1,12 +1,6 @@
 version: '2'
 
 services:
-  ui:
-    volumes:
-      - "$PWD/UI/src:/src"
-    # ports:
-    #   - "8080:8080"
-
   getimagefromurl:
     ports:
       - "3000:3000"
