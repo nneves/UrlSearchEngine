@@ -1,3 +1,4 @@
 #/bin/bash
+source .env;
 
-docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+docker-compose up;

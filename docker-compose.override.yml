@@ -1,0 +1,39 @@
+version: '2'
+
+services:
+  getimagefromurl:
+    ports:
+      - "3000:3000"
+
+  getcontentfromurl:
+    ports:
+      - "6000:6000"
+
+  dbproxy:
+    ports:
+      - "8000:8000"
+
+  couchdb:
+    ports:
+      - "5984:5984"
+
+  ui:
+    build: ./UI
+    image: "searchengine-ui:${UI_RELEASE_TAG}"
+    #working_dir: /usr/src/app
+    restart: always
+    environment:
+      DBPROXY_HOST: "dbproxy"
+      DBPROXY_PORT: 8000
+      PROXY: "http://dbproxy:8000"
+    volumes:
+      - "$PWD/UI/uicode:/usr/src/app"
+    ports:
+      - "8080:8080"
+    depends_on: 
+      - couchdb
+      - dbproxy
+    networks:
+      senetwork:
+        aliases:
+          - ui

@@ -3,7 +3,7 @@ version: '2'
 services:
   databaseinit:
     build: ./DatabaseInit
-    image: searchengine-databaseinit:0.0.2
+    image: "searchengine-databaseinit:${DB_INIT_RELEASE_TAG}"
     volumes:
       - "$PWD/DatabaseInit/dbinitstatus:/dbinitstatus"
     environment:
@@ -15,50 +15,12 @@ services:
         aliases:
           - databaseinit
 
-  ui:
-    build: ./UI
-    image: searchengine-ui:0.0.32
-    #working_dir: /usr/src/app
-    restart: always
-    environment:
-      DBPROXY_HOST: "dbproxy"
-      DBPROXY_PORT: 8000
-      PROXY: "http://dbproxy:8000"
-    volumes:
-      - "$PWD/UI/uicode:/usr/src/app"
-    ports:
-      - "8080:8080"
-    depends_on: 
-      - couchdb
-      - dbproxy
-    networks:
-      senetwork:
-        aliases:
-          - ui
-
-  uiproduction:
-    image: nginx:latest
-    restart: always
-    environment:
-      DBPROXY_HOST: "dbproxy"
-      DBPROXY_PORT: 8000
-      PROXY: "http://dbproxy:8000"
-    volumes:
-      - "$PWD/UI/uicode/build/:/usr/share/nginx/html:ro"
-      - "$PWD/UI/uiconf/default.conf:/etc/nginx/conf.d/default.conf:ro"
-    ports:
-      - "80:80"
-    depends_on: 
-      - couchdb
-      - dbproxy
-    networks:
-      senetwork:
-        aliases:
-          - ui
+  # UI service defined in docker-compose.production.yml [PRODUCTION]
+  # UI service defined in docker-compose.override.yml [DEVELOPMENT]
 
   getimagefromurl:
     build: ./GetImageFromURL
-    image: searchengine-getimagefromurl:0.2.5
+    image: "searchengine-getimagefromurl:${GETIMAGEFROMURL_RELEASE_TAG}"
     restart: always
     volumes:
       - "$PWD/GetImageFromURL/tmp:/tmp"
@@ -69,7 +31,7 @@ services:
 
   getcontentfromurl:
     build: ./GetContentFromURL
-    image: searchengine-getcontentfromurl:0.0.7
+    image: "searchengine-getcontentfromurl:${GETCONTENTFROMURL_RELEASE_TAG}"
     restart: always
     volumes:
       - "$PWD/GetContentFromURL/tmp:/tmp"
@@ -80,7 +42,7 @@ services:
 
   dbproxy:
     build: ./DBProxy
-    image: searchengine-dbproxy:0.0.6
+    image: "searchengine-dbproxy:${DBPROXY_RELEASE_TAG}"
     restart: always
     environment:
       COUCHDB_HOST: "couchdb"

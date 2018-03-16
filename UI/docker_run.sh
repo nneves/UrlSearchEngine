@@ -1,6 +1,6 @@
 #!/bin/bash
 
-source .env
+source ../.env
 echo "Run version ${UI_RELEASE_TAG}";
 
 # Run app in isolation
