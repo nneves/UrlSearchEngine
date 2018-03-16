@@ -6,6 +6,7 @@ ENV NODE_ENV=development
 # Create and set the WORKDIR so all following commands run in it
 RUN mkdir -p /usr/src/app
 RUN mkdir -p /usr/src/scripts
+RUN mkdir -p /usr/src/cache
 WORKDIR /usr/src/app
 
 # Copy the package.json and npm-shrinkwrap to fix dependencies versions
@@ -18,6 +19,8 @@ COPY ./uicode/semantic.json ./
 
 # Install app dependencies
 RUN npm install
+RUN mv /usr/src/app/node_modules /usr/src/cache/
+RUN ln -s /usr/src/cache/node_modules /usr/src/app/node_modules
 
 # Copy the start.sh script
 COPY ./uiscripts/start.sh /usr/src/scripts/start.sh

@@ -1,3 +1,4 @@
 #!/bin/sh
+source ../.env
 
-docker build -t searchengine-getimagefromurl:0.2.7 .
+docker build -t searchengine-getimagefromurl:$GETIMAGEFROMURL_RELEASE_TAG .

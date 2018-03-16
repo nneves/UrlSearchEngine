@@ -1,3 +1,4 @@
 #!/bin/sh
+source ../.env
 
-docker build --no-cache -t searchengine-getcontentfromurl:0.0.7 .
+docker build --no-cache -t searchengine-getcontentfromurl:$GETCONTENTFROMURL_RELEASE_TAG .

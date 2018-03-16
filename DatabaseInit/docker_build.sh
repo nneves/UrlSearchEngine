@@ -1,4 +1,4 @@
 #!/bin/sh
-. ./docker_build_version.sh
+source ../.env
 
-docker build --no-cache -t searchengine-databaseinit:$DATABASEINIT_BUILD_VERION .
+docker build --no-cache -t searchengine-databaseinit:$DB_INIT_RELEASE_TAG .
