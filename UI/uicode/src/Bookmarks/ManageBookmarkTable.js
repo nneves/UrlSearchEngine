@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 
 import { COUCHDB_BOOKMARKENGINE } from './../envvars.js';
 
@@ -22,8 +23,7 @@ export default class ManageBookmarkTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            data: [],
-            removed: []
+            data: []
         };
     }
 
@@ -88,16 +88,13 @@ export default class ManageBookmarkTable extends Component {
         });
     };
 
-    removeBookmark = (e) => {
-        let currState = this.state.removed;
-        const index = currState.indexOf(e.target.id);
-        if (index === -1) {
-            currState.push(e.target.id);
-        } else {
-            currState.splice(index, 1);
+    deleteBookmark = (e) => {
+        let currState = this.state.data;
+        let index = currState.map((data) => { return data.hash; }).indexOf(e.target.id);
+        if (index > -1 ) {
+            currState[index].deleted = !currState[index].deleted;
+            this.setState({data: currState});
         }
-        this.setState({removed: currState});
-        console.log("remove Bookmark: ", e.target.id);
     };
 
     editBookmark = (e) => {
@@ -129,16 +126,16 @@ export default class ManageBookmarkTable extends Component {
 
     renderTableRown = (key, idx, elem) => {
         return (
-            <tr key={'tbl-row-'+idx+'-'+key}>
+            <tr key={'tbl-row-'+idx+'-'+key} className={ elem.deleted ? "red" : ""}>
                 <td key={'tbl-row-col1-'+idx+'-'+key} className="center aligned">
                     <div className="ui buttons">
                     <button
-                        key={'removeBookmark-'+idx+'-'+key}
-                        id={idx+'_'+key}
+                        key={'deleteBookmark-'+idx+'-'+key}
+                        id={elem.hash}
                         className="ui icon button"
                         style={optionRemoveButtonStyle}
-                        onClick={this.removeBookmark}>
-                            <i id={idx+'_'+key} className="red close icon" ref={(node) => {
+                        onClick={this.deleteBookmark}>
+                            <i id={elem.hash} className={ elem.deleted ? "blue plus icon" : "red close icon"} ref={(node) => {
                                 if (node) {
                                     node.style.setProperty("margin-left", "-4px", "important");
                                     node.style.setProperty("margin-top", "-2px", "important");
@@ -147,11 +144,11 @@ export default class ManageBookmarkTable extends Component {
                     </button>
                     <button
                         key={'editBookmark-'+idx+'-'+key}
-                        id={idx+'_'+key}
+                        id={elem.hash}
                         className="ui icon button"
                         style={optionEditButtonStyle}
                         onClick={this.editBookmark}>
-                            <i id={idx+'_'+key} className="blue pencil alternate icon" ref={(node) => {
+                            <i id={elem.hash} className="blue pencil alternate icon" ref={(node) => {
                                 if (node) {
                                     node.style.setProperty("margin-left", "-4px", "important");
                                     node.style.setProperty("margin-top", "-2px", "important");
@@ -160,7 +157,7 @@ export default class ManageBookmarkTable extends Component {
                     </button>
                     </div>
                 </td>
-                <td key={'tbl-row-col2-'+idx+'-'+key}>{elem}</td>
+                <td key={'tbl-row-col2-'+idx+'-'+key}>{elem.url}</td>
             </tr>
         );
     }
@@ -203,6 +200,6 @@ export default class ManageBookmarkTable extends Component {
 ManageBookmarkTable.propTypes = {
     tableKey: React.PropTypes.string,
     reloadData: React.PropTypes.func,
-    removeBookmark: React.PropTypes.func,
+    deleteBookmark: React.PropTypes.func,
     editBookmark: React.PropTypes.func
 };

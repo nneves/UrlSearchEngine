@@ -7,6 +7,7 @@ var _ = require('lodash');
 var Joi = require('joi');
 var base64Img = require('base64-img');
 var env = require('../envvars.js');
+var murmur = require("murmurhash-js");
 
 const CDB = new PouchDB("http://" + env.COUCHDB_HOST + ":" + env.COUCHDB_PORT + "/" + env.COUCHDB_DBBOOKMARK);
 
@@ -100,7 +101,9 @@ function postBookmarkChunksCompleted(request, reply) {
     dataChunks.split('\n').map((chunk) => {
         var match = myRegexp.exec(chunk.toString());
         if(match !== null) {
-            urlList.push(match[1]);
+            var url = match[1];
+            var hash = murmur.murmur3(url, 0);
+            urlList.push({url: url, hash: String(hash), deleted: false, edited: ""});
         }
     });
     dataChunks = "";

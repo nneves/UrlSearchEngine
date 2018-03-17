@@ -28,6 +28,7 @@ services:
       PROXY: "http://dbproxy:8000"
     volumes:
       - "$PWD/UI/uicode:/usr/src/app"
+      #- "$PWD/UI/uicode/node_modules:/usr/src/app/node_modules"
     ports:
       - "8080:8080"
     depends_on: 
