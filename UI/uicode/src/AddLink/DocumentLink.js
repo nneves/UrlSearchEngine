@@ -32,7 +32,7 @@ export default class DocumentLink extends Component {
 
     render() {
       return (
-        <div className={this.props.visible ? 'show' : 'hide'}>
+        <div>
             <div className={this.props.data.hasOwnProperty("_id") ? 'show' : 'hide'}>
                 <div className="mx2 mt2 mb0">
                     <div className="ui card" style={cardStyle}>
@@ -67,7 +67,6 @@ export default class DocumentLink extends Component {
 }
 
 DocumentLink.propTypes = {
-  visible: PropTypes.bool,
   data: PropTypes.object,
   removeSubmit: PropTypes.func,
   clearAddLinkDocument: PropTypes.func

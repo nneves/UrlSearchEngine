@@ -40,7 +40,7 @@ export default class Cardlist extends Component {
 
   render() {
     return (
-      <div className={this.props.visible ? 'show' : 'hide'}>
+      <div>
         <div className="mx2 mt2 mb2 border center bold rounded white" style={styleSearchResults}>
           Search Results {this.getCountOfItems()}
         </div>
@@ -59,7 +59,6 @@ export default class Cardlist extends Component {
 }
 
 Cardlist.propTypes = {
-  visible: PropTypes.bool,
   searchData: PropTypes.object,
   removeSubmit: PropTypes.func
 };

@@ -23,7 +23,7 @@ export default class AddLink extends Component {
 
     render() {
       return (
-        <div className={this.props.visible ? 'show' : 'hide'}>
+        <div>
           <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
             <div className="px2 mt2 mb0">
               <div className="ui pointing below label">
@@ -48,6 +48,5 @@ export default class AddLink extends Component {
 }
 
 AddLink.propTypes = {
-  visible: PropTypes.bool,
   submit: PropTypes.func,
 };

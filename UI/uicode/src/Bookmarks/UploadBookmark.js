@@ -62,16 +62,13 @@ export default class UploadBookmark extends Component {
 
     render() {
       return (
-        <div className={this.props.visible ? 'show' : 'hide'}>
-            <div className="mx2 mt2 mb0">
-                <Gallery uploader={ this.uploader } />
-            </div>
+        <div className="mx2 mt2 mb0">
+            <Gallery uploader={ this.uploader } />
         </div>
       )
     }
 }
 
 UploadBookmark.propTypes = {
-    visible: PropTypes.bool,
     loadManageBookmark: PropTypes.func,
 };

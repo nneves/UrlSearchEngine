@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 
 import ApiUtils from './ApiUtils.js';
 import { COUCHDB_SEARCHENGINE, COUCHDB_BOOKMARKENGINE } from './envvars.js';
@@ -27,10 +28,6 @@ export default class App extends Component {
         rows: []
       },
       manageBookmarkTableData: [],
-      visibleAddLink: false,
-      visibleUploadBookmark: false,
-      visibleManageBookmark: false,
-      visibleSearch: true,
       idleStatus: true,
       addLinkDocument: {}
     };
@@ -39,22 +36,6 @@ export default class App extends Component {
   showMessage = (msg) => {
     this.message.showMessage(msg);
   }
-
-  toggleVisibleSearch = (visible) => {
-    this.setState({visibleSearch: visible});
-  };
-
-  toggleVisibleAddLink = (visible) => {
-    this.setState({visibleAddLink: visible});
-  };
-
-  toggleVisibleUploadBookmark = (visible) => {
-    this.setState({visibleUploadBookmark: visible});
-  };
-
-  toggleVisibleManageBookmark = (visible) => {
-    this.setState({visibleManageBookmark: visible});
-  };
 
   saveSubmit = (urladdress) => {
     const apiUrl = `/url`;
@@ -190,57 +171,60 @@ export default class App extends Component {
 
   render() {
     return (
-      <div id="app">
-        <Toolbar
-          visibleSearch={this.state.visibleSearch}
-          visibleAddLink={this.state.visibleAddLink}
-          visibleUploadBookmark={this.state.visibleUploadBookmark}
-          toggleVisibleAddLink={this.toggleVisibleAddLink}
-          toggleVisibleUploadBookmark={this.toggleVisibleUploadBookmark}
-          toggleVisibleManageBookmark={this.toggleVisibleManageBookmark}
-          toggleVisibleSearch={this.toggleVisibleSearch}
-        />
+      <Router>
+        <div id="app">
+          <Toolbar />
 
-        <AddLink
-          visible={this.state.visibleAddLink}
-          submit={this.saveSubmit}
-        />
-        <DocumentLink
-          visible={this.state.visibleAddLink}
-          data={this.state.addLinkDocument}
-          removeSubmit={this.removeSubmit}
-          clearAddLinkDocument={this.clearAddLinkDocument}
-        />
+          <Switch>
+            <Redirect exact={true} from="/" to="search" />
 
-        <UploadBookmark
-          visible={this.state.visibleUploadBookmark}
-          loadManageBookmark={this.loadManageBookmark}
-        />
-        <ManageBookmark
-          visible={this.state.visibleManageBookmark}
-          loadManageBookmark={this.loadManageBookmark}
-          manageBookmarkData={this.state.manageBookmarkData}
-        />
+            <Route exact={true} path="/addlink" render={() => (
+              <div>
+                <AddLink
+                  submit={this.saveSubmit}
+                />
+                <DocumentLink
+                  data={this.state.addLinkDocument}
+                  removeSubmit={this.removeSubmit}
+                  clearAddLinkDocument={this.clearAddLinkDocument}
+                />
+              </div>
+            )}/>
 
-        <Search
-          visible={this.state.visibleSearch}
-          submit={this.searchSubmit}
-        />
+            <Route exact={true} path="/uploadbookmark" render={() => (
+              <UploadBookmark
+                loadManageBookmark={this.loadManageBookmark}
+              />
+            )}/>
+            <Route exact={true} path="/managebookmark" render={() => (
+              <ManageBookmark
+                loadManageBookmark={this.loadManageBookmark}
+                manageBookmarkData={this.state.manageBookmarkData}
+              />
+            )}/>
 
-        <Spinner
-          visible={!this.state.idleStatus}
-        />
+            <Route exact={true} path="/search" render={() => (
+              <div>
+                <Search
+                  submit={this.searchSubmit}
+                />
+                <Cardlist
+                  searchData={this.state.searchData}
+                  removeSubmit={this.removeSubmit}
+                />
+              </div>
+            )}/>
+          </Switch>
 
-        <Cardlist
-          visible={this.state.visibleSearch}
-          searchData={this.state.searchData}
-          removeSubmit={this.removeSubmit}
-        />
+          <Spinner
+            visible={!this.state.idleStatus}
+          />
 
-        <Message
-          ref={(message) => { this.message = message; }}
-        />
-      </div>
+          <Message
+            ref={(message) => { this.message = message; }}
+          />
+        </div>
+      </Router>
     );
   }
 }

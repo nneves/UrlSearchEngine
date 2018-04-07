@@ -24,7 +24,7 @@ export default class SearchPanel extends Component {
 
   render() {
     return (
-      <div className={this.props.visible ? 'show' : 'hide'}>
+      <div>
         <form onSubmit={event => {event.preventDefault(); this.handleClick();} }>
           <div className="px2 mt2 mb0">
             <div className="ui pointing below label">
@@ -49,6 +49,5 @@ export default class SearchPanel extends Component {
 }
 
 SearchPanel.propTypes = {
-  visible: PropTypes.bool,
   submit: PropTypes.func
 };
