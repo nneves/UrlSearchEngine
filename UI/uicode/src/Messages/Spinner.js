@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 export default class Spinner extends Component {
   constructor(props) {
@@ -44,5 +45,5 @@ export default class Spinner extends Component {
 }
 
 Spinner.propTypes = {
-  visible: React.PropTypes.bool
+  visible: PropTypes.bool
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 const styleButton = {
   width: 200,
@@ -47,6 +48,6 @@ export default class AddLink extends Component {
 }
 
 AddLink.propTypes = {
-  visible: React.PropTypes.bool,
-  submit: React.PropTypes.func,
+  visible: PropTypes.bool,
+  submit: PropTypes.func,
 };

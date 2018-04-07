@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { Menu } from 'semantic-ui-react';
 
@@ -77,12 +78,12 @@ export default class Toolbar extends Component {
 }
 
 Toolbar.propTypes = {
-  visibleAddLink: React.PropTypes.bool,
-  visibleUploadBookmark: React.PropTypes.bool,
-  visibleManageBookmark: React.PropTypes.bool,
-  visibleSearch: React.PropTypes.bool,
-  toggleVisibleAddLink: React.PropTypes.func,
-  toggleVisibleUploadBookmark: React.PropTypes.func,
-  toggleVisibleManageBookmark: React.PropTypes.func,
-  toggleVisibleSearch: React.PropTypes.func,
+  visibleAddLink: PropTypes.bool,
+  visibleUploadBookmark: PropTypes.bool,
+  visibleManageBookmark: PropTypes.bool,
+  visibleSearch: PropTypes.bool,
+  toggleVisibleAddLink: PropTypes.func,
+  toggleVisibleUploadBookmark: PropTypes.func,
+  toggleVisibleManageBookmark: PropTypes.func,
+  toggleVisibleSearch: PropTypes.func,
 };

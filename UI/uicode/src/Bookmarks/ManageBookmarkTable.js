@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 import _ from 'lodash';
 
 import { COUCHDB_BOOKMARKENGINE } from './../envvars.js';
@@ -198,8 +199,8 @@ export default class ManageBookmarkTable extends Component {
 }
 
 ManageBookmarkTable.propTypes = {
-    tableKey: React.PropTypes.string,
-    reloadData: React.PropTypes.func,
-    deleteBookmark: React.PropTypes.func,
-    editBookmark: React.PropTypes.func
+    tableKey: PropTypes.string,
+    reloadData: PropTypes.func,
+    deleteBookmark: PropTypes.func,
+    editBookmark: PropTypes.func
 };

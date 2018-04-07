@@ -16,12 +16,12 @@
     "graceful-fs": "^4.1.11",
     "lodash": "^4.17.5",
     "minimatch": "^3.0.4",
-    "prop-types": "^15.5.6",
-    "react": "^15.4.1",
-    "react-dom": "^15.4.1",
+    "prop-types": "^15.6.1",
+    "react": "^16.3.1",
+    "react-dom": "^16.3.1",
     "react-fine-uploader": "^1.0.8",
     "react-markdown": "^3.1.4",
-    "react-tap-event-plugin": "^2.0.1",
+    "react-router": "^4.3.0-rc.2",
     "react-transition-group": "^1.2.1",
     "semantic-ui": "^2.3.0",
     "semantic-ui-react": "^0.77.2"
@@ -32,5 +32,5 @@
     "test": "node set_proxy.js && PORT=8080 react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://dbproxy:8000"
+  "proxy": "http://localhost:8000"
 }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 import FineUploaderTraditional from 'fine-uploader-wrappers';
 import Gallery from 'react-fine-uploader';
@@ -71,6 +72,6 @@ export default class UploadBookmark extends Component {
 }
 
 UploadBookmark.propTypes = {
-    visible: React.PropTypes.bool,
-    loadManageBookmark: React.PropTypes.func,
+    visible: PropTypes.bool,
+    loadManageBookmark: PropTypes.func,
 };

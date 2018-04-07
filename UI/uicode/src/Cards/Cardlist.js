@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 import { Grid } from 'semantic-ui-react';
 
@@ -58,7 +59,7 @@ export default class Cardlist extends Component {
 }
 
 Cardlist.propTypes = {
-  visible: React.PropTypes.bool,
-  searchData: React.PropTypes.object,
-  removeSubmit: React.PropTypes.func
+  visible: PropTypes.bool,
+  searchData: PropTypes.object,
+  removeSubmit: PropTypes.func
 };

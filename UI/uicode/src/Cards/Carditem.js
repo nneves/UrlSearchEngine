@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 const cardStyle = {
   width: "400px",
@@ -71,10 +72,10 @@ export default class Carditem extends Component {
   }
 }
 Carditem.propTypes = {
-  id: React.PropTypes.string,
-  title: React.PropTypes.string,
-  content: React.PropTypes.string,
-  url: React.PropTypes.string,
-  image: React.PropTypes.string,
-  removeSubmit: React.PropTypes.func
+  id: PropTypes.string,
+  title: PropTypes.string,
+  content: PropTypes.string,
+  url: PropTypes.string,
+  image: PropTypes.string,
+  removeSubmit: PropTypes.func
 };

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 import ReactMarkdown from 'react-markdown';
 
@@ -66,8 +67,8 @@ export default class DocumentLink extends Component {
 }
 
 DocumentLink.propTypes = {
-  visible: React.PropTypes.bool,
-  data: React.PropTypes.object,
-  removeSubmit: React.PropTypes.func,
-  clearAddLinkDocument: React.PropTypes.func
+  visible: PropTypes.bool,
+  data: PropTypes.object,
+  removeSubmit: PropTypes.func,
+  clearAddLinkDocument: PropTypes.func
 };

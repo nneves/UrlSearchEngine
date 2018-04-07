@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { PropTypes } from 'prop-types';
 
 import ManageBookmarkTable from './ManageBookmarkTable';
 
@@ -36,6 +37,6 @@ export default class ManageBookmark extends Component {
 }
 
 ManageBookmark.propTypes = {
-    visible: React.PropTypes.bool,
-    loadManageBookmark: React.PropTypes.func
+    visible: PropTypes.bool,
+    loadManageBookmark: PropTypes.func
 };

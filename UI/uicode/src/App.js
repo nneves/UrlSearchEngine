@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
 
 import ApiUtils from './ApiUtils.js';
 import { COUCHDB_SEARCHENGINE, COUCHDB_BOOKMARKENGINE } from './envvars.js';
-
-import injectTapEventPlugin from 'react-tap-event-plugin';
 
 import Search from './Search/Search.js';
 import AddLink from './AddLink/AddLink.js';
@@ -15,10 +12,6 @@ import Spinner from './Messages/Spinner.js';
 import Toolbar from './Toolbar/Toolbar.js';
 import UploadBookmark from './Bookmarks/UploadBookmark.js';
 import ManageBookmark from './Bookmarks/ManageBookmark.js';
-
-// Needed for onTouchTap
-// http://stackoverflow.com/a/34015469/988941
-injectTapEventPlugin();
 
 export default class App extends Component {
   constructor(props) {
