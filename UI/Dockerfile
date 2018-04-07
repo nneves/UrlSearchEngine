@@ -11,7 +11,7 @@ WORKDIR /usr/src/app
 
 # Copy the package.json and npm-shrinkwrap to fix dependencies versions
 COPY ./uicode/package.json ./
-COPY ./uicode/npm-shrinkwrap.json ./
+COPY ./uicode/package-lock.json ./
 
 # Copy semantic-ui resources
 COPY ./uicode/semantic/ ./semantic
