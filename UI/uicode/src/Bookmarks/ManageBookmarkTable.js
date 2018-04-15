@@ -3,6 +3,9 @@ import { PropTypes } from 'prop-types';
 import _ from 'lodash';
 
 import { COUCHDB_BOOKMARKENGINE } from './../envvars.js';
+import PouchDB from 'pouchdb-browser';
+
+const dbBookmarkEngine = new PouchDB(`${window.location.origin}/couchdb/${COUCHDB_BOOKMARKENGINE}/`);
 
 const tableStyle = {
     height:"500px",
@@ -29,69 +32,38 @@ export default class ManageBookmarkTable extends Component {
     }
 
     loadManageBookmarkTable = () => {
-        const docKey = this.props.tableKey
-        const couchUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/${docKey}`;
+        const { tableKey } = this.props;
         this.setState({idleStatus: false});
-    
-        fetch(`${couchUrl}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
-            }
-        })
-        .then((response) => response.json())
-        .then((response) => {
-            this.setState({data: response.bookmarkList});
+        // TODO: move "dbBookmarkEngine.get()" to be called from the api
+        dbBookmarkEngine.get(tableKey).then((doc) => {
+            this.setState({data: doc.bookmarkList});
             this.setState({idleStatus: true});
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log(err);
             this.setState({idleStatus: true});
         });
     };
 
     deleteManageBookmarkTable = () => {
-        const docKey = this.props.tableKey
-        const couchUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/${docKey}`;
-        this.setState({idleStatus: false});
-
-        fetch(`${couchUrl}`, {
-            method: 'GET',
-            headers: {
-                'Accept': 'application/json',
+       const { tableKey } = this.props;
+       this.setState({idleStatus: false});
+       // TODO: move "dbBookmarkEngine.get()" to be called from the api
+       dbBookmarkEngine.get(tableKey).then((doc) => {
+           return dbBookmarkEngine.remove(doc);
+        }).then((response) => {
+            if(response.ok) {
+                this.props.reloadData();
             }
-        })
-        .then((response) => response.json())
-        .then((response) => response._rev)
-        .then((rev) => {
-            const couchDeleteUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/${docKey}?rev=${rev}`;
-            fetch(`${couchDeleteUrl}`, {
-                method: 'DELETE',
-                headers: {
-                    'Accept': 'application/json',
-                }
-            })
-            .then((response) => response.json())
-            .then((response) => {
-                if(response.ok) {
-                    this.props.reloadData();
-                }
-                this.setState({idleStatus: true});
-            })
-            .catch((err) => {
-                console.log(err);
-                this.setState({idleStatus: true});
-            });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.setState({idleStatus: true});
+            this.setState({idleStatus: true});
+        }).catch((err) => {
+            console.log(err);
+            this.setState({idleStatus: true});  
         });
     };
 
     deleteBookmark = (e) => {
         let currState = this.state.data;
-        let index = currState.map((data) => { return data.hash; }).indexOf(e.target.id);
+        const index = currState.map((data) => { return data.hash; }).indexOf(e.target.id);
         if (index > -1 ) {
             currState[index].deleted = !currState[index].deleted;
             this.setState({data: currState});

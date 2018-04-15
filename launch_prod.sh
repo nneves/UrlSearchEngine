@@ -4,6 +4,7 @@ source .env;
 if [[ "$@" == "build" || ! -d ./UI/uicode/build ]]
 then
     echo "Building REACT app for production...";
+    docker-compose build;
     docker run \
     --env PROXY="http://dbproxy:8000" \
     -v "${PWD}/UI/uicode:/usr/src/app" \

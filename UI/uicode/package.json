@@ -16,6 +16,7 @@
     "graceful-fs": "^4.1.11",
     "lodash": "^4.17.5",
     "minimatch": "^3.0.4",
+    "pouchdb-browser": "^6.4.3",
     "prop-types": "^15.6.1",
     "react": "^16.3.1",
     "react-dom": "^16.3.1",

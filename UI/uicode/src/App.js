@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 
 import ApiUtils from './ApiUtils.js';
 import { COUCHDB_SEARCHENGINE, COUCHDB_BOOKMARKENGINE } from './envvars.js';
+import PouchDB from 'pouchdb-browser';
 
 import Search from './Search/Search.js';
 import AddLink from './AddLink/AddLink.js';
@@ -13,6 +14,9 @@ import Spinner from './Messages/Spinner.js';
 import Toolbar from './Toolbar/Toolbar.js';
 import UploadBookmark from './Bookmarks/UploadBookmark.js';
 import ManageBookmark from './Bookmarks/ManageBookmark.js';
+
+const dbSearchEngine = new PouchDB(`${window.location.origin}/couchdb/${COUCHDB_SEARCHENGINE}/`);
+const dbBookmarkEngine = new PouchDB(`${window.location.origin}/couchdb/${COUCHDB_BOOKMARKENGINE}/`);
 
 export default class App extends Component {
   constructor(props) {
@@ -41,7 +45,8 @@ export default class App extends Component {
     const apiUrl = `/url`;
     const payload = `url=${urladdress}`;
 
-    this.setState({idleStatus: false, addLinkDocument: {}});
+    this.setState({idleStatus: false});
+    this.setState({addLinkDocument: {}});
 
     fetch(`${apiUrl}`, {
       method: 'POST',
@@ -59,25 +64,16 @@ export default class App extends Component {
       }
       this.showMessage(`Success: ${urladdress}`);
       return response.data;
-    })
-    .then(data => {
-      const couchUrl = `/couchdb/${COUCHDB_SEARCHENGINE}`;
-      const documentID = encodeURIComponent(data.id);
-      const requestURL = `${couchUrl}/${documentID}`;
-      fetch(`${requestURL}`, {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(ApiUtils.checkStatus)
-      .then(response => response.json())
-      .then(response => {
-        this.setState({idleStatus: true, addLinkDocument: response});
-      })
-
-    })
-    .catch((err) => {
+    }).then(data => {
+      // TODO: move "dbSearchEngine.get()" to be called from the api
+      dbSearchEngine.get(data.id).then((doc) => {
+        this.setState({addLinkDocument: doc});
+        this.setState({idleStatus: true});
+      }).catch((err) => {
+          console.log(err);
+          this.setState({idleStatus: true});
+      });
+    }).catch((err) => {
       console.log(err);
       this.showMessage(`Error: ${err.message}`);
       this.setState({idleStatus: true});
@@ -101,6 +97,17 @@ export default class App extends Component {
       if (response.result !== "success") {
         throw new Error(response.message);
       }
+      // remove docid from state
+      let currState = this.state.searchData.rows;
+      let currCount = this.state.searchData.total_rows;
+      const index = currState.map((data) => { return data.id; }).indexOf(docid);
+      if (index > -1 ) {
+          currState.splice(index, 1);
+          this.setState({searchData: {
+            "total_rows": currCount - 1,
+            "rows": currState
+          }});
+      }
       this.showMessage(`Success: ${docid}`);
       this.setState({idleStatus: true});
     })
@@ -115,6 +122,7 @@ export default class App extends Component {
     const querystring = serchwords.split(' ').join('+');
     const apiUrl = `/search/${querystring}`;
     this.setState({idleStatus: false});
+    this.setState({searchData: {"total_rows": 0, "rows": []}});
 
     fetch(`${apiUrl}`, {
       method: 'GET',
@@ -144,25 +152,15 @@ export default class App extends Component {
   };
 
   loadManageBookmark = () => {
-    const couchUrl = `/couchdb/${COUCHDB_BOOKMARKENGINE}/_all_docs`;
     this.setState({idleStatus: false});
-
-    fetch(`${couchUrl}`, {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
+    // TODO: move "dbBookmarkEngine.allDocs()" to be called from the api
+    dbBookmarkEngine.allDocs({include_docs: true, descending: true}, (err, doc) => {
+      if (doc.hasOwnProperty("total_rows") === false) {
+        throw new Error(doc);
       }
-    })
-    .then((response) => response.json())
-    .then((response) => {
-      if (response.hasOwnProperty("total_rows") === false) {
-        throw new Error(response);
-      }
-      //this.showMessage(`Success: Found ${response.total_rows} Bookmarks`);
-      this.setState({manageBookmarkData: response});
+      this.setState({manageBookmarkData: doc});
       this.setState({idleStatus: true});
-    })
-    .catch((err) => {
+    }).catch((err) => {
       console.log(err);
       this.showMessage(`Error: ${err.message}`);
       this.setState({idleStatus: true});
