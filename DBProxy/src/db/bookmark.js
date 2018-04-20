@@ -1,19 +1,19 @@
-var fs = require('fs');
-var R = require('request-promise');
-var log = require('fancy-log');
-var PouchDB = require('pouchdb');
-var toid = require('to-id');
-var _ = require('lodash');
-var Joi = require('joi');
-var base64Img = require('base64-img');
-var env = require('../envvars.js');
-var murmur = require("murmurhash-js");
+const fs = require('fs');
+const R = require('request-promise');
+const log = require('fancy-log');
+const PouchDB = require('pouchdb');
+const toid = require('to-id');
+const _ = require('lodash');
+const Joi = require('joi');
+const base64Img = require('base64-img');
+const env = require('../envvars.js');
+const murmur = require("murmurhash-js");
 
 const CDB = new PouchDB("http://" + env.COUCHDB_HOST + ":" + env.COUCHDB_PORT + "/" + env.COUCHDB_DBBOOKMARK);
 
 function contentBookmark(bookmarkList) {
-    var ts = (new Date()).toISOString();
-    var o = {
+    const ts = (new Date()).toISOString();
+    const o = {
         bookmarkList: bookmarkList,
         _id: ts,
     };
@@ -22,21 +22,21 @@ function contentBookmark(bookmarkList) {
 
 // curl --form file=@bookmarks_23_12_2017.html http://localhost:8000/bookmarks
 function postBookmarks(request, reply) {
-    var myRegexp = /HREF="(.*?)"/g;
-    var urlList = [];
-    var response = {"result":"", "message":"", "data":{}};
+    const myRegexp = /HREF="(.*?)"/g;
+    let urlList = [];
+    let response = {"result":"", "message":"", "data":{}};
 
-    var data = request.payload;
+    const data = request.payload;
     if (data.file) {
         data.file.pipe(require('split')()).on('data', (chunk) => {            
-            var match = myRegexp.exec(chunk.toString());
+            const match = myRegexp.exec(chunk.toString());
             if(match !== null) {
                 urlList.push(match[1]);
             }
           });
 
         data.file.on('end', function (err) {
-            var doc = contentBookmark(urlList);
+            const doc = contentBookmark(urlList);
             CDB.put(doc).then(function(data) {
                 response.result = "success";
                 response.data = data;
@@ -62,9 +62,9 @@ const config = {
     }
 };
 
-var dataChunks = "";
+let dataChunks = "";
 function postBookmarkChunks(request, reply) {
-    var response = {"success": true};
+    const response = {"success": true};
     /*
     {   qqpartindex: '0',
         qqpartbyteoffset: '0',
@@ -95,21 +95,21 @@ const configChunks = {
 
 
 function postBookmarkChunksCompleted(request, reply) {
-    var myRegexp = /HREF="(.*?)"/g;
-    var urlList = [];
-    var response = {};
+    const myRegexp = /HREF="(.*?)"/g;
+    let urlList = [];
+    let response = {};
     dataChunks.split('\n').map((chunk) => {
-        var match = myRegexp.exec(chunk.toString());
+        const match = myRegexp.exec(chunk.toString());
         if(match !== null) {
-            var url = match[1];
-            var hash = murmur.murmur3(url, 0);
+            const url = match[1];
+            const hash = murmur.murmur3(url, 0);
             urlList.push({url: url, hash: String(hash), deleted: false, edited: ""});
         }
     });
     dataChunks = "";
 
     if (urlList.length > 0) {
-        var doc = contentBookmark(urlList);
+        const doc = contentBookmark(urlList);
         CDB.put(doc).then(function(data) {
             response.success = true;
             response.data = data;

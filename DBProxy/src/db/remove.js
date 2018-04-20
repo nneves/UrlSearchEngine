@@ -1,23 +1,23 @@
-var R = require('request-promise');
-var log = require('fancy-log');
-var Joi = require('joi');
-var env = require('../envvars.js');
+const R = require('request-promise');
+const log = require('fancy-log');
+const Joi = require('joi');
+const env = require('../envvars.js');
 
 function getDocumentRevision(docid) {
-    var apiUrl = `http://${env.COUCHDB_HOST}:${env.COUCHDB_PORT}/${env.COUCHDB_DBNAME}/${docid}`;
+    const apiUrl = `http://${env.COUCHDB_HOST}:${env.COUCHDB_PORT}/${env.COUCHDB_DBNAME}/${docid}`;
     console.log("[GET]", apiUrl);
     return R.get(apiUrl);
 };
 
 function removeDocument(docid, docrev) {
-    var apiUrl = `http://${env.COUCHDB_HOST}:${env.COUCHDB_PORT}/${env.COUCHDB_DBNAME}/${docid}?rev=${docrev}`;
+    const apiUrl = `http://${env.COUCHDB_HOST}:${env.COUCHDB_PORT}/${env.COUCHDB_DBNAME}/${docid}?rev=${docrev}`;
     console.log("[DELETE]", apiUrl);
     return R.delete(apiUrl);
 };
 
 function removeHandler(request, reply) {
-    var docid = request.params.docid ? encodeURIComponent(request.params.docid) : '';
-    var response = {"result":"", "message":""};
+    const docid = request.params.docid ? encodeURIComponent(request.params.docid) : '';
+    let response = {"result":"", "message":""};
 
     Promise.all([
         getDocumentRevision(docid)
@@ -30,7 +30,7 @@ function removeHandler(request, reply) {
         return data;
     })
     .then(function(data) {
-        var docdata = JSON.parse(data);
+        const docdata = JSON.parse(data);
         return [docdata._id, docdata._rev];
     })
     .then(function([docid, docrev]){

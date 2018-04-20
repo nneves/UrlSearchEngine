@@ -1,18 +1,18 @@
 'use strict';
 
-var R = require('request-promise');
-var log = require('fancy-log');
-var PouchDB = require('pouchdb');
-var toid = require('to-id');
-var _ = require('lodash');
-var Hapi = require('hapi');
-var Joi = require('joi');
-var base64Img = require('base64-img');
-var env = require('./envvars.js');
-var dbPost = require('./db/post.js');
-var dbRemove = require('./db/remove.js');
-var dbSearch = require('./db/search.js');
-var dbBookmark = require('./db/bookmark.js');
+const R = require('request-promise');
+const log = require('fancy-log');
+const PouchDB = require('pouchdb');
+const toid = require('to-id');
+const _ = require('lodash');
+const Hapi = require('hapi');
+const Joi = require('joi');
+const base64Img = require('base64-img');
+const env = require('./envvars.js');
+const dbPost = require('./db/post.js');
+const dbRemove = require('./db/remove.js');
+const dbSearch = require('./db/search.js');
+const dbBookmark = require('./db/bookmark.js');
 const couchdbProxy = require('./couchdb/proxy.js');
 
 const server = new Hapi.Server();

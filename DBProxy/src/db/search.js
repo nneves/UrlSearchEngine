@@ -1,17 +1,17 @@
-var R = require('request-promise');
-var log = require('fancy-log');
-var Joi = require('joi');
-var env = require('../envvars.js');
+const R = require('request-promise');
+const log = require('fancy-log');
+const Joi = require('joi');
+const env = require('../envvars.js');
 
 function search(searchwords) {
-    var apiUrl = `http://${env.COUCHDB_HOST}:${env.COUCHDB_PORT}/_fti/local/${env.COUCHDB_DBNAME}/_design/search/by_content?q=${searchwords}&include_docs=true`;
+    const apiUrl = `http://${env.COUCHDB_HOST}:${env.COUCHDB_PORT}/_fti/local/${env.COUCHDB_DBNAME}/_design/search/by_content?q=${searchwords}&include_docs=true`;
     console.log(apiUrl);
     return R.get(apiUrl);
 };
 
 function searchHandler(request, reply) {
-    var searchwords = request.params.searchwords ? encodeURIComponent(request.params.searchwords) : '';
-    var response = {"result":"", "message":""};
+    const searchwords = request.params.searchwords ? encodeURIComponent(request.params.searchwords) : '';
+    let response = {"result":"", "message":""};
 
     Promise.all([
         search(searchwords)
